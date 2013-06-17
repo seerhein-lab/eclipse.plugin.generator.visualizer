@@ -98,7 +98,7 @@
           label="Datenmodell Generator (deleted)"
           icon="icons/deleted.gif"
           overviewRulerPreferenceKey="dgvDeletedRuler"
-          overviewRulerPreferenceValue="true"
+          overviewRulerPreferenceValue="false"
           textPreferenceKey="dgvDeletedText"
           textPreferenceValue="true"
           verticalRulerPreferenceKey="dgvDeletedVertical"
@@ -106,7 +106,7 @@
           textStylePreferenceKey="dgvDeletedTextStyle"
           textStylePreferenceValue="IBEAM"
           colorPreferenceKey="dgvDeletedColor"
-          colorPreferenceValue="255,0,0">
+          colorPreferenceValue="152,29,29">
         </specification>
     </extension>
     <extension point="org.eclipse.ui.editors.markerAnnotationSpecification"
