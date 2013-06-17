@@ -48,6 +48,11 @@ public class Differ {
                     // doesn't know these line.
                     continue;
                 }
+                if (lines.containsKey(crt.leftStart())) {
+                    if (lines.get(crt.leftStart()).isDoNotMarkMe()) {
+                        continue;
+                    }
+                }
                 Position position = posByLineNumber(lines, crt.leftStart(), crt.leftEnd());
                 
                 MarkerType markerType = MarkerType.getByDiff(crt);

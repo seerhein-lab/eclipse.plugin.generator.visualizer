@@ -87,6 +87,8 @@ public class Complement {
     public Map<Integer, LineAttrs> getLineMapOfSrcFile() throws CoreException, IOException {
         Map<Integer, LineAttrs> result = new HashMap<Integer, LineAttrs>();
         
+        String regexpSvnId = ".*\\$Id:.*\n";
+        
         String regexp = "(.*)(\r\n)|(.*)(\r)|(.*)(\n)";
         String srcFileAsString = getSrcFileAsString();
         Matcher matcher = Pattern.compile(regexp).matcher(srcFileAsString);
@@ -94,10 +96,14 @@ public class Complement {
         Integer lineNo = 0;
         int offset = 0;
         while(matcher.find()) {
-            String group0 = matcher.group(0);
-            result.put(lineNo, new LineAttrs(offset, group0));
-            if (group0 != null) {
-                offset += group0.length();
+            String lineText = matcher.group(0);
+            LineAttrs crtLine = new LineAttrs(offset, lineText);
+            if (lineText.matches(regexpSvnId) ) {
+                crtLine.setDoNotMarkMe(true);
+            }
+            result.put(lineNo, crtLine);
+            if (lineText != null) {
+                offset += lineText.length();
             }
             lineNo++;
         }

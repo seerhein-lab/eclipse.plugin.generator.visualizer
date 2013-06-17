@@ -10,6 +10,8 @@ public class LineAttrs {
     
     private String lineText;
     
+    private boolean doNotMarkMe;
+    
     public LineAttrs(int offset, String lineText) {
         super();
         this.offset = offset;
@@ -28,6 +30,14 @@ public class LineAttrs {
      */
     public String getLineText() {
         return lineText;
+    }
+    
+    public void setDoNotMarkMe(boolean doNotMarkMe) {
+        this.doNotMarkMe = doNotMarkMe;
+    }
+    
+    public boolean isDoNotMarkMe() {
+        return doNotMarkMe;
     }
     
     @Override
