@@ -11,7 +11,7 @@
     <!-- Defines my own custom marker, use the marker view panel to see them when they are created-->
     <extension point="org.eclipse.core.resources.markers"
       id="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.generated"
-      name="Generated">
+      name="DG: Generated">
         <super type="org.eclipse.core.resources.textmarker"/>
         <!--http://stackoverflow.com/questions/8866688/eclipse-pde-custom-quickfix-only-available-in-problems-view -->
         <super type="org.eclipse.core.resources.problemmarker"/>
@@ -21,7 +21,7 @@
     </extension> 
     <extension point="org.eclipse.core.resources.markers"
       id="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.added"
-      name="Added">
+      name="DG: Added">
         <super type="org.eclipse.core.resources.textmarker"/>
         <super type="org.eclipse.core.resources.problemmarker"/>
         <super type="org.eclipse.core.resources.marker"/>
@@ -30,7 +30,7 @@
     </extension> 
     <extension point="org.eclipse.core.resources.markers"
       id="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.deleted"
-      name="Deleted">
+      name="DG: Deleted">
         <super type="org.eclipse.core.resources.textmarker"/>
         <super type="org.eclipse.core.resources.problemmarker"/>
         <super type="org.eclipse.core.resources.marker"/>
@@ -39,7 +39,7 @@
     </extension> 
     <extension point="org.eclipse.core.resources.markers"
       id="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.changedBoth"
-      name="Modified">
+      name="DG: Modified">
         <super type="org.eclipse.core.resources.textmarker"/>
         <super type="org.eclipse.core.resources.problemmarker"/>
         <super type="org.eclipse.core.resources.marker"/>

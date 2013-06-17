@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-	<modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.seitenbau.eclipse</groupId>
-	<artifactId>com.seitenbau.eclipse.generator.visualizer</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
+    <groupId>com.seitenbau.eclipse</groupId>
+    <artifactId>com.seitenbau.eclipse.generator.visualizer</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
 
-	<packaging>pom</packaging>
+    <packaging>pom</packaging>
 
-	<properties>
-		<tycho-version>0.18.0</tycho-version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+    <properties>
+        <tycho-version>0.18.0</tycho-version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-maven-plugin</artifactId>
-				<version>${tycho-version}</version>
-				<extensions>true</extensions>
-			</plugin>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>target-platform-configuration</artifactId>
-				<version>${tycho-version}</version>
-				<configuration>
-					<pomDependencies>consider</pomDependencies>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.eclipse.tycho</groupId>
+                <artifactId>tycho-maven-plugin</artifactId>
+                <version>${tycho-version}</version>
+                <extensions>true</extensions>
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.tycho</groupId>
+                <artifactId>target-platform-configuration</artifactId>
+                <version>${tycho-version}</version>
+                <configuration>
+                    <pomDependencies>consider</pomDependencies>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
-	<profiles>
-		<profile>
-			<id>default</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<modules>
-				<module>com.seitenbau.eclipse.generator.visualizer.core</module>
-				<module>com.seitenbau.eclipse.generator.visualizer.feature</module>
-				<module>com.seitenbau.eclipse.generator.visualizer.repository</module>
-			</modules>
-			<repositories>
-				<repository>
-					<id>juno</id>
-					<layout>p2</layout>
-					<url>http://download.eclipse.org/releases/juno/</url>
-				</repository>
-			</repositories>
-		</profile>
-	</profiles>
+    <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>com.seitenbau.eclipse.generator.visualizer.core</module>
+                <module>com.seitenbau.eclipse.generator.visualizer.feature</module>
+                <module>com.seitenbau.eclipse.generator.visualizer.repository</module>
+            </modules>
+            <repositories>
+                <repository>
+                    <id>juno</id>
+                    <layout>p2</layout>
+                    <url>http://download.eclipse.org/releases/juno/</url>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
 
 </project>
 
