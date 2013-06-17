@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+    <!-- Start the plugin at Eclipse startup -->
+    <extension point="org.eclipse.ui.startup">
+     <startup class="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.DatenmodellGeneratorVisualizerPlugin">
+     </startup>
+  </extension>
+
+    <!-- Defines my own custom marker, use the marker view panel to see them when they are created-->
+    <extension point="org.eclipse.core.resources.markers"
+      id="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.generated"
+      name="Generated">
+        <super type="org.eclipse.core.resources.textmarker"/>
+        <!--http://stackoverflow.com/questions/8866688/eclipse-pde-custom-quickfix-only-available-in-problems-view -->
+        <super type="org.eclipse.core.resources.problemmarker"/>
+        <super type="org.eclipse.core.resources.marker"/>
+        <persistent value="true"/>
+        <attribute name="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.attr.complement.genFile.url" />
+    </extension> 
+    <extension point="org.eclipse.core.resources.markers"
+      id="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.added"
+      name="Added">
+        <super type="org.eclipse.core.resources.textmarker"/>
+        <super type="org.eclipse.core.resources.problemmarker"/>
+        <super type="org.eclipse.core.resources.marker"/>
+        <persistent value="true"/>
+        <attribute name="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.attr.complement.genFile.url" />
+    </extension> 
+    <extension point="org.eclipse.core.resources.markers"
+      id="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.deleted"
+      name="Deleted">
+        <super type="org.eclipse.core.resources.textmarker"/>
+        <super type="org.eclipse.core.resources.problemmarker"/>
+        <super type="org.eclipse.core.resources.marker"/>
+        <persistent value="true"/>
+        <attribute name="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.attr.complement.genFile.url" />
+    </extension> 
+    <extension point="org.eclipse.core.resources.markers"
+      id="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.changedBoth"
+      name="Modified">
+        <super type="org.eclipse.core.resources.textmarker"/>
+        <super type="org.eclipse.core.resources.problemmarker"/>
+        <super type="org.eclipse.core.resources.marker"/>
+        <persistent value="true"/>
+        <attribute name="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.attr.complement.genFile.url" />
+    </extension> 
+    
+    <!-- Annotation specification:- describes what the annotation will look like and its properties -->
+    <extension point="org.eclipse.ui.editors.markerAnnotationSpecification"
+      id="annotationSpecificationGenerated"
+      name="GeneratedAnnotation">
+        <specification
+          annotationType="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.annotation.generated"
+          label="Datenmodell Generator (generated)"
+          icon="icons/generated.gif"
+          overviewRulerPreferenceKey="dgvGeneratedRuler"
+          overviewRulerPreferenceValue="true"
+          colorPreferenceKey="dgvGeneratedColor"
+          colorPreferenceValue="198,222,230"
+          textPreferenceKey="dgvGeneratedText"
+          textPreferenceValue="true"
+          verticalRulerPreferenceKey="dgvGeneratedVertical"
+          verticalRulerPreferenceValue="true"
+          textStylePreferenceKey="dgvGeneratedTextStyle"
+          textStylePreferenceValue="BOX"
+          highlightPreferenceKey="dgvGeneratedHighlight"
+          highlightPreferenceValue="true">
+        </specification>
+    </extension>
+    <extension point="org.eclipse.ui.editors.markerAnnotationSpecification"
+      id="annotationSpecificationAdded"
+      name="AddedAnnotation">
+        <specification
+          annotationType="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.annotation.added"
+          label="Datenmodell Generator (added)"
+          icon="icons/added.gif"
+          overviewRulerPreferenceKey="dgvAddedRuler"
+          overviewRulerPreferenceValue="true"
+          colorPreferenceKey="dgvAddedColor"
+          colorPreferenceValue="179,145,136"
+          textPreferenceKey="dgvAddedText"
+          textPreferenceValue="true"
+          verticalRulerPreferenceKey="dgvAddedVertical"
+          verticalRulerPreferenceValue="true"
+          textStylePreferenceKey="dgvAddedTextStyle"
+          textStylePreferenceValue="BOX"
+          highlightPreferenceKey="dgvAddedHighlight"
+          highlightPreferenceValue="true">
+        </specification>
+    </extension>
+    <extension point="org.eclipse.ui.editors.markerAnnotationSpecification"
+      id="annotationSpecificationDeleted"
+      name="DeletedAnnotation">
+        <specification
+          annotationType="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.annotation.deleted"
+          label="Datenmodell Generator (deleted)"
+          icon="icons/deleted.gif"
+          overviewRulerPreferenceKey="dgvDeletedRuler"
+          overviewRulerPreferenceValue="true"
+          colorPreferenceKey="dgvDeletedColor"
+          colorPreferenceValue="136,146,179"
+          textPreferenceKey="dgvDeletedText"
+          textPreferenceValue="true"
+          verticalRulerPreferenceKey="dgvDeletedVertical"
+          verticalRulerPreferenceValue="true"
+          textStylePreferenceKey="dgvDeletedTextStyle"
+          textStylePreferenceValue="BOX"
+          highlightPreferenceKey="dgvDeletedHighlight"
+          highlightPreferenceValue="true">
+        </specification>
+    </extension>
+    <extension point="org.eclipse.ui.editors.markerAnnotationSpecification"
+      id="annotationSpecificationChangedBoth"
+      name="ChangedBothAnnotation">
+        <specification
+          annotationType="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.annotation.changedBoth"
+          label="Datenmodell Generator (modified)"
+          icon="icons/changedBoth.gif"
+          overviewRulerPreferenceKey="dgvChangedBothRuler"
+          overviewRulerPreferenceValue="true"
+          colorPreferenceKey="dgvChangedBothColor"
+          colorPreferenceValue="59,74,128"
+          textPreferenceKey="dgvChangedBothText"
+          textPreferenceValue="true"
+          verticalRulerPreferenceKey="dgvChangedBothVertical"
+          verticalRulerPreferenceValue="true"
+          textStylePreferenceKey="dgvChangedBothTextStyle"
+          textStylePreferenceValue="BOX"
+          highlightPreferenceKey="dgvChangedBothHighlight"
+          highlightPreferenceValue="true">
+        </specification>
+    </extension>
+    
+    <!-- Links the annotation spec to the marker -->
+    <extension point="org.eclipse.ui.editors.annotationTypes">
+        <type
+          markerSeverity="0"
+          super="org.eclipse.ui.workbench.texteditor.info"
+          name="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.annotation.generated"
+          markerType="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.generated"/>
+    </extension>
+    <extension point="org.eclipse.ui.editors.annotationTypes">
+        <type
+          markerSeverity="0"
+          super="org.eclipse.ui.workbench.texteditor.info"
+          name="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.annotation.added"
+          markerType="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.added"/>
+    </extension>
+    <extension point="org.eclipse.ui.editors.annotationTypes">
+        <type
+          markerSeverity="0"
+          super="org.eclipse.ui.workbench.texteditor.info"
+          name="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.annotation.deleted"
+          markerType="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.deleted"/>
+    </extension>
+    <extension point="org.eclipse.ui.editors.annotationTypes">
+        <type
+          markerSeverity="0"
+          super="org.eclipse.ui.workbench.texteditor.info"
+          name="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.annotation.changedBoth"
+          markerType="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.changedBoth"/>
+    </extension>
+    
+    <!--
+    <extension point="org.eclipse.ui.ide.markerHelp"> 
+        <markerHelp 
+          markerType="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.generated" 
+          helpContextId="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.generated.context" /> 
+    </extension> 
+    -->
+    
+    <!-- showing quick fixes -->
+    <extension point="org.eclipse.ui.ide.markerResolution">
+        <markerResolutionGenerator
+          markerType="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.generated"
+          class="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.MarkerResolutionGenerator">
+        </markerResolutionGenerator>
+        <markerResolutionGenerator
+          markerType="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.added"
+          class="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.MarkerResolutionGenerator">
+        </markerResolutionGenerator>
+        <markerResolutionGenerator
+          markerType="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.deleted"
+          class="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.MarkerResolutionGenerator">
+        </markerResolutionGenerator>
+        <markerResolutionGenerator
+          markerType="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.changedBoth"
+          class="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.MarkerResolutionGenerator">
+        </markerResolutionGenerator>
+    </extension>
+    
+    <!-- Preferences -->
+    <extension
+          point="org.eclipse.ui.preferencePages">
+       <page
+             class="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.preferences.MainPrefPage"
+             id="datenmodell-generator-visualizer.preferences.mainpage"
+             name="Datenmodell Gen. Visualizer">
+       </page>
+    </extension>
+    <extension
+          point="org.eclipse.core.runtime.preferences">
+          <initializer
+                class="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.preferences.PrefInitializer">
+          </initializer>
+    </extension>
+
+</plugin>
