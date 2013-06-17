@@ -19,5 +19,5 @@ Import-Package: org.eclipse.core.resources,
  org.eclipse.ui,
  org.eclipse.ui.ide,
  org.eclipse.ui.texteditor
-Bundle-ClassPath: bin/,
- icons/
+Bundle-ClassPath: icons/,
+ .
