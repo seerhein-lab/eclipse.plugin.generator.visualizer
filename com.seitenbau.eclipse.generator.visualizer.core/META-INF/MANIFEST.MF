@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Datenmodell Generator  Visualizer
-Bundle-SymbolicName: com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer;singleton:=true
-Bundle-Version: 0.1.0
+Bundle-SymbolicName: com.seitenbau.eclipse.generator.visualizer.core;singleton:=true
+Bundle-Version: 0.1.0.qualifier
 Bundle-Activator: com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.DatenmodellGeneratorVisualizerPlugin
 Bundle-Vendor: SEITENBAU GmbH
 Require-Bundle: org.eclipse.ui,

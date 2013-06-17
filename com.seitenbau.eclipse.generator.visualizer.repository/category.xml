@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/com.seitenbau.eclipse.generator.visualizer.feature_0.1.0.qualifier.jar" id="com.seitenbau.eclipse.generator.visualizer.feature" version="0.1.0.qualifier">
+      <category name="com.seitenbau.eclipse.generator.visualizer.category"/>
+   </feature>
+   <category-def name="com.seitenbau.eclipse.generator.visualizer.category" label="Generator Visualizer">
+      <description>
+         Generator Visualizer
+      </description>
+   </category-def>
+</site>
