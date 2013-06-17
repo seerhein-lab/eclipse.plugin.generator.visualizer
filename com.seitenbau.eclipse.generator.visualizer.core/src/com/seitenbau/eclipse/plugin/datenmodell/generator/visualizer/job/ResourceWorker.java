@@ -84,7 +84,8 @@ public class ResourceWorker {
     };
     
     public static void scheduleFullWorkspaceScan() {
-        fullWorkspaceScanJob.schedule();
+        // give eclipse a chance to load itself fist..
+        fullWorkspaceScanJob.schedule(5000);
     }
 
     private static Job fullWorkspaceScanJob = new Job("Full Workspace Scan") {
