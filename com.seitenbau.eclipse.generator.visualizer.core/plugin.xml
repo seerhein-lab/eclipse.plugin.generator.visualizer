@@ -79,7 +79,7 @@
           overviewRulerPreferenceKey="dgvAddedRuler"
           overviewRulerPreferenceValue="true"
           colorPreferenceKey="dgvAddedColor"
-          colorPreferenceValue="179,145,136"
+          colorPreferenceValue="187,242,187"
           textPreferenceKey="dgvAddedText"
           textPreferenceValue="true"
           verticalRulerPreferenceKey="dgvAddedVertical"
@@ -99,16 +99,14 @@
           icon="icons/deleted.gif"
           overviewRulerPreferenceKey="dgvDeletedRuler"
           overviewRulerPreferenceValue="true"
-          colorPreferenceKey="dgvDeletedColor"
-          colorPreferenceValue="136,146,179"
           textPreferenceKey="dgvDeletedText"
           textPreferenceValue="true"
           verticalRulerPreferenceKey="dgvDeletedVertical"
           verticalRulerPreferenceValue="true"
           textStylePreferenceKey="dgvDeletedTextStyle"
-          textStylePreferenceValue="BOX"
-          highlightPreferenceKey="dgvDeletedHighlight"
-          highlightPreferenceValue="true">
+          textStylePreferenceValue="IBEAM"
+          colorPreferenceKey="dgvDeletedColor"
+          colorPreferenceValue="255,0,0">
         </specification>
     </extension>
     <extension point="org.eclipse.ui.editors.markerAnnotationSpecification"
@@ -121,7 +119,7 @@
           overviewRulerPreferenceKey="dgvChangedBothRuler"
           overviewRulerPreferenceValue="true"
           colorPreferenceKey="dgvChangedBothColor"
-          colorPreferenceValue="59,74,128"
+          colorPreferenceValue="241,216,197"
           textPreferenceKey="dgvChangedBothText"
           textPreferenceValue="true"
           verticalRulerPreferenceKey="dgvChangedBothVertical"
