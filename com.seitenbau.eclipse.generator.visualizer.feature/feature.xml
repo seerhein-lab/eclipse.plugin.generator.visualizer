@@ -17,6 +17,19 @@
       TODO Unknown
    </license>
 
+   <requires>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.compare" version="3.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.team.core" version="3.6.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.team.ui" version="3.6.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.jface.text"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.ui.editors"/>
+   </requires>
+
    <plugin
          id="com.seitenbau.eclipse.generator.visualizer.core"
          download-size="0"
