@@ -25,6 +25,10 @@ public class Differ {
      * @param complement
      */
     public static void computeAndRenderAnnotations(Complement complement) {
+        if (complement == null || complement.getSrcFile() == null || complement.getGeneratedFile() == null) {
+            // no real complement
+            return;
+        }
         try {
             RangeDifference[] compareOnLevelLine = compareOnLevelLine(complement);
 

@@ -26,11 +26,16 @@ public class CompareInput extends CompareEditorInput {
     {
         // TODO: editable, java syntax coloring, ...
         config.setLeftEditable(true);
+        config.setAncestorLabel("anchestor label");
+        config.setLeftLabel("src file");
+        config.setRightLabel("fully generated file");
+        config.setProperty(CompareConfiguration.IGNORE_WHITESPACE, true);
     }
     
     public CompareInput(Complement toCompare) {
         super(config);
         this.complement = toCompare;
+        setTitle("Complement Compare Deluxe.");
     }
 
     @Override
