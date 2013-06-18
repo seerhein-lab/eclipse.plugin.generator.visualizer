@@ -173,19 +173,19 @@
     <extension point="org.eclipse.ui.ide.markerResolution">
         <markerResolutionGenerator
           markerType="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.generated"
-          class="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.MarkerResolutionGenerator">
+          class="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.quickfix.MarkerResolutionGenerator">
         </markerResolutionGenerator>
         <markerResolutionGenerator
           markerType="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.added"
-          class="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.MarkerResolutionGenerator">
+          class="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.quickfix.MarkerResolutionGenerator">
         </markerResolutionGenerator>
         <markerResolutionGenerator
           markerType="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.deleted"
-          class="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.MarkerResolutionGenerator">
+          class="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.quickfix.MarkerResolutionGenerator">
         </markerResolutionGenerator>
         <markerResolutionGenerator
           markerType="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.changedBoth"
-          class="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.MarkerResolutionGenerator">
+          class="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.quickfix.MarkerResolutionGenerator">
         </markerResolutionGenerator>
     </extension>
     

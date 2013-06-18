@@ -34,6 +34,10 @@ public class DatenmodellGeneratorVisualizerPlugin extends AbstractUIPlugin imple
      */
     public DatenmodellGeneratorVisualizerPlugin() {
     }
+    
+    public static DatenmodellGeneratorVisualizerPlugin getInstance() {
+        return plugin;
+    }
 
     /*
      * (non-Javadoc)
@@ -45,6 +49,9 @@ public class DatenmodellGeneratorVisualizerPlugin extends AbstractUIPlugin imple
     public void start(BundleContext context) throws Exception {
         super.start(context);
         plugin = this;
+        
+        System.out.println(PLUGIN_ID);
+        System.out.println(plugin.getBundle().getBundleId());
         
         // listener
         IResourceChangeListener listener = new ResourceChangeReporter();

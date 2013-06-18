@@ -1,4 +1,4 @@
-package com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker;
+package com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.quickfix;
 
 
 import org.eclipse.core.resources.IFile;
@@ -6,26 +6,32 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.ui.IMarkerResolution2;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 
-public class MarkerResolution implements IMarkerResolution2 {
-    
-    private String label;
-    private String description;
-    private Image image;
-    
-    public MarkerResolution(String label, String description) {
-        this(label, description, null);
-    }
+import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.DatenmodellGeneratorVisualizerPlugin;
+import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.MarkerFactory;
 
-    public MarkerResolution(String label, String description, Image image) {
-        this.label = label;
-        this.description = description;
-        this.image = image;
+public class JumpToGenFileResolution extends BaseResolution {
+    
+    private static final Image icon = 
+            AbstractUIPlugin
+                .imageDescriptorFromPlugin(
+                        DatenmodellGeneratorVisualizerPlugin
+                            .getInstance()
+                            .getBundle()
+                            .getSymbolicName(), 
+                        "icons/jumpto.gif").createImage();
+    
+    public JumpToGenFileResolution() {
+        super(
+                "Jump to generated complement file", 
+                "Using the provided link the generated complement will be opend in an new edior view.", 
+                icon
+            );
     }
 
     @Override
