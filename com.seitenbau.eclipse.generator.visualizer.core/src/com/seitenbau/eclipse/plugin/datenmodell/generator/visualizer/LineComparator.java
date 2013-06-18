@@ -13,7 +13,9 @@ package com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.eclipse.compare.rangedifferencer.IRangeComparator;
 import org.eclipse.core.resources.IEncodedStorage;
 import org.eclipse.core.resources.IStorage;
@@ -99,10 +101,11 @@ public class LineComparator implements IRangeComparator {
         TrailingLineFeedDetector trailingLineFeedDetector = new TrailingLineFeedDetector(is);
         BufferedReader br = new BufferedReader(new InputStreamReader(trailingLineFeedDetector, encoding));
         String line;
-        ArrayList ar = new ArrayList();
+        List<String> ar = new ArrayList<String>();
         while ((line = br.readLine()) != null) {
             ar.add(line);
         }
+        IOUtils.closeQuietly(br);
         // Add a trailing line if the last character in the file was a line feed.
         // We do this because a BufferedReader doesn't distinguish the case
         // where the last line has or doesn't have a trailing line separator

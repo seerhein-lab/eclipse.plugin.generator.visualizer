@@ -18,7 +18,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.swt.widgets.Display;
 
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.diff.Differ;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.dto.Complement;
@@ -63,7 +62,6 @@ public class FullWorkspaceScan extends Job {
             myMonitor.subTask("Datenmodell Generator Visualizer - Adding Markers and Annotations to Project " + toAnnotate.getKey());
             progress += incStep;
             myMonitor.worked(progress);
-            System.out.println(progress);
             
             for (Complement anno : toAnnotate.getValue()) {
                 Differ.computeAndRenderAnnotations(anno);

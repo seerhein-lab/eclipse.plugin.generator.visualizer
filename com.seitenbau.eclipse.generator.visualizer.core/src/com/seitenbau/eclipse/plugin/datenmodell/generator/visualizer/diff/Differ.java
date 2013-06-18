@@ -2,21 +2,15 @@ package com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.diff;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
-import org.eclipse.compare.contentmergeviewer.TokenComparator;
 import org.eclipse.compare.rangedifferencer.RangeDifference;
 import org.eclipse.compare.rangedifferencer.RangeDifferencer;
-import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.text.Position;
 
-import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.DatenmodellGeneratorVisualizerPlugin;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.LineComparator;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.common.Constants;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.dto.Complement;
@@ -26,6 +20,10 @@ import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.Mark
 
 public class Differ {
     
+    /**
+     * Computes all Markers and Annotations of a complement and renders them into the editor.
+     * @param complement
+     */
     public static void computeAndRenderAnnotations(Complement complement) {
         try {
             RangeDifference[] compareOnLevelLine = compareOnLevelLine(complement);
@@ -45,7 +43,7 @@ public class Differ {
                 RangeDifference crt = compareOnLevelLine[i];
 
                 if (! lines.containsKey(crt.leftStart())) {
-                    // doesn't know these line.
+                    // doesn't know this line.
                     continue;
                 }
                 if (lines.containsKey(crt.leftStart())) {
@@ -60,7 +58,7 @@ public class Differ {
                         complement, 
                         markerType, 
                         position, 
-                        crt.toString());
+                        getAnnotationsMsg(crt.leftStart(), crt.leftEnd()));
                 
                 for (int v = crt.leftStart(); v <= (crt.leftEnd() - 1); v++) {
                     visitedLines[v] = 1;
@@ -83,7 +81,7 @@ public class Differ {
                             complement, 
                             MarkerType.GENERATED, 
                             position, 
-                            (lineStart + 1) + " -> " + (lineEnd + 1));
+                            getAnnotationsMsg(lineStart, lineEnd));
                     lineStart = lineEnd;
                 }
             }
@@ -95,6 +93,12 @@ public class Differ {
         }
     }
     
+    /**
+     * Maps a line-based input to an absolute position rage.
+     * @param lines key: lineNumber - 0-based.
+     * @param lineStart 0-based.
+     * @param lineEnd 0-based.
+     */
     private static Position posByLineNumber(Map<Integer, LineAttrs> lines, int lineStart, int lineEnd) {
         LineAttrs lineStartOffset = lines.get(lineStart);
         
@@ -112,6 +116,9 @@ public class Differ {
         return position;
     }
     
+    /**
+     * Print-Helper.
+     */
     private static String printLineOffset(Map<Integer, LineAttrs> lines) {
         int l = 0;
         String txt = "";
@@ -129,6 +136,9 @@ public class Differ {
         return txt;
     }
     
+    /**
+     * Calls the internal Differencer.
+     */
     private static RangeDifference[] compareOnLevelLine(Complement toCompare) {
         
         RangeDifference[] differences = null;
@@ -148,33 +158,14 @@ public class Differ {
         return differences;
     }
     
-    @Deprecated
-    private static List<Position> compareOnLevelToken(String leftAkaHumanInput, String rightAkaGeneratorInput) {
-
-        // create token comparators of input
-        TokenComparator leftTokenComparator = new TokenComparator(leftAkaHumanInput);
-        TokenComparator rightTokenComparator = new TokenComparator(rightAkaGeneratorInput);
-        // find the differences
-        RangeDifference[] differences = RangeDifferencer.findDifferences(leftTokenComparator, rightTokenComparator);
-        System.out.println(Arrays.toString(differences));
-        
-        // we only want to display changes in the source file, so only in left file.
-        List<Position> leftDiff = new ArrayList<Position>(differences.length);
-        
-        for (int i = 0; i < differences.length; i++) {
-            int leftStart = differences[i].leftStart();
-            int leftEnd = differences[i].leftEnd();
-            int tokenStart = leftTokenComparator.getTokenStart(leftStart);
-            int tokenEnd = leftTokenComparator.getTokenStart(leftEnd);
-            
-            String diff = leftAkaHumanInput.substring(tokenStart, tokenEnd);
-            System.out.println(differences[i]);
-            System.out.println("DIFF:");
-            System.out.println("'"+diff+"'");
-            leftDiff.add(new Position(tokenStart, tokenEnd - tokenStart));
-        }
-        
-        return leftDiff;
+    /**
+     * Returns a human readable message for an annotation.
+     * @param lineStart 0-based!
+     * @param lineEnd 0-based!
+     * @return human readable message for an annotation.
+     */
+    private static String getAnnotationsMsg(int lineStart, int lineEnd) {
+        return ("Line " + (lineStart + 1) + " -> " + (lineEnd + 1) + " [" + (lineEnd - lineStart) + "]");
     }
 
 }

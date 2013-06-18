@@ -1,7 +1,6 @@
 package com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.listener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
@@ -58,17 +57,8 @@ public class ResourceChangeReporter implements IResourceChangeListener {
             e.printStackTrace();
         }
         
-//        printAllAffectedResources(changed);
-        
         ResourceWorker.scheduleUpdateJob(changed);
 
-    }
-
-    
-    private void printAllAffectedResources(List<IResource> toPrint) {
-        for (IResource crt : toPrint) {
-            System.out.println(crt.getFullPath());
-        }
     }
 
 }

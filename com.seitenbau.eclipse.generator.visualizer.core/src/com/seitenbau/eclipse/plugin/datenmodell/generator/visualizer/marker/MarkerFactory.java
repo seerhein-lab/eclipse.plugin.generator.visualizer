@@ -101,7 +101,7 @@ public class MarkerFactory {
         Map<String, Object> attrs = new HashMap<String, Object>();
         attrs.put(IMarker.CHAR_START, start);
         attrs.put(IMarker.CHAR_END, end);
-        attrs.put(IMarker.MESSAGE, markerType.getMarkerPrefix() + ": " + markerMsg);
+        attrs.put(IMarker.MESSAGE, markerType.getMarkerPrefix() + ":\n" + markerMsg);
         attrs.put(MARKER_ATTR_GEN_FILE_URL, res.getGeneratedFile().getFullPath().toString());
         
         MarkerUtilities.createMarker(res.getSrcFile(), attrs, markerType.getMarkerId());
