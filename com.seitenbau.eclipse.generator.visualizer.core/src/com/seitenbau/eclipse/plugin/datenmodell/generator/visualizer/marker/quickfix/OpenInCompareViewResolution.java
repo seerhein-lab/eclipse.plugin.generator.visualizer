@@ -3,13 +3,9 @@ package com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.qui
 import org.eclipse.compare.CompareUI;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.DatenmodellGeneratorVisualizerPlugin;
@@ -30,8 +26,12 @@ public class OpenInCompareViewResolution extends BaseResolution {
                         "icons/compare.gif").createImage();
 
     public OpenInCompareViewResolution() {
-        super("Open Complement in Compare Editor", "Open it", icon);
-        // TODO Auto-generated constructor stub
+        super(
+                "Open Complement in a Compare View", 
+                "Opens a compare view. " +
+                "On the left side the source file will be compared with the " +
+                "generated original file on the right side.", 
+                icon);
     }
 
     @Override
@@ -42,9 +42,12 @@ public class OpenInCompareViewResolution extends BaseResolution {
         if (filePath != null) {
             if (marker.getResource() instanceof IFile) {
                 Complement toCompare = 
-                        ResourceWorker.findGeneratedComplement((IFile) marker.getResource(), marker.getResource().getProject());
+                        ResourceWorker
+                            .findGeneratedComplement(
+                                    (IFile) marker.getResource(), 
+                                    marker.getResource().getProject());
                 
-                CompareUI.openCompareDialog((new CompareInput(toCompare)));
+                CompareUI.openCompareEditorOnPage(new CompareInput(toCompare), page);
             }
         }
 

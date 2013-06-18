@@ -21,19 +21,23 @@ public class CompareInput extends CompareEditorInput {
 
     private Complement complement;
     
+    private static CompareConfiguration config = new CompareConfiguration();
+    
+    {
+        // TODO: editable, java syntax coloring, ...
+        config.setLeftEditable(true);
+    }
+    
     public CompareInput(Complement toCompare) {
-        super(new CompareConfiguration());
+        super(config);
         this.complement = toCompare;
     }
 
     @Override
-    protected Object prepareInput(IProgressMonitor monitor)
-            throws InvocationTargetException, InterruptedException {
-//        CompareItem ancestor = new CompareItem("Common", "contents");
-        CompareItem left, right;
+    protected Object prepareInput(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
         try {
-            left = new CompareItem("Left", complement.getSrcFileAsString());
-            right = new CompareItem("Right", complement.getGeneratedFileAsString());
+            CompareItem left = new CompareItem("Left", complement.getSrcFileAsString());
+            CompareItem right = new CompareItem("Right", complement.getGeneratedFileAsString());
             return new DiffNode(null, Differencer.CHANGE, null, left, right);
         } catch (CoreException e) {
             e.printStackTrace();
