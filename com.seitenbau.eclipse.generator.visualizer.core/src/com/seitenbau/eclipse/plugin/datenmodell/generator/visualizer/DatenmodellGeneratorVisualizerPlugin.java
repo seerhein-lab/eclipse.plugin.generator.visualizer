@@ -5,6 +5,8 @@ import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IStartup;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -120,6 +122,18 @@ public class DatenmodellGeneratorVisualizerPlugin extends AbstractUIPlugin imple
             }
         }
         
+    }
+    
+    /**
+     * Returns the selection of the package explorer
+     */
+    public static TreeSelection getTreeSelection() {
+
+        ISelection selection = DatenmodellGeneratorVisualizerPlugin.getActiveWorkbenchWindow().getSelectionService().getSelection();
+        if (selection instanceof TreeSelection) {
+            return (TreeSelection)selection;
+        }
+        return null;
     }
 
 }

@@ -37,6 +37,11 @@ public class ResourceWorker {
         return ungemergt;
     }
     
+    public static IFolder getSrcRootFolderOfProject(IProject project) {
+        IFolder src = project.getFolder(complementSrcRoot);
+        return src;
+    }
+    
     public static String getComplementSrcRoot() {
         return complementSrcRoot;
     }

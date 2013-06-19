@@ -14,7 +14,7 @@ public class MarkerResolutionGenerator implements IMarkerResolutionGenerator2 {
     public IMarkerResolution[] getResolutions(IMarker marker) {
         return new IMarkerResolution2[] {
                 new JumpToGenFileResolution(),
-                new OpenInCompareViewResolution()};
+                new OpenInCompareViewResolution() };
     }
 
     @Override
