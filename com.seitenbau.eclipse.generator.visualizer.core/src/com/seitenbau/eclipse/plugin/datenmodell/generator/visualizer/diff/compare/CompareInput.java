@@ -11,6 +11,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
 
+import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.diff.DifferencerWithIgnores;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.dto.Complement;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.job.ResourceWorker;
 
@@ -55,20 +56,20 @@ public class CompareInput extends CompareEditorInput {
     @Override
     protected Object prepareInput(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
         
-        decideWhatToCompare();
-            
-        Differencer d= new Differencer();
-        Object differences = d.findDifferences(false, monitor, null, null, left, right);
-        
-        return differences;
+        return decideWhatToCompare(monitor);
     }
     
-    private void decideWhatToCompare() {
+    private Object decideWhatToCompare(IProgressMonitor monitor) {
         if (this.complement != null) {
             System.out.println("Comparing two files");
             this.left = new ResourceNode((IResource) complement.getSrcFile());
             this.right = new ResourceNode((IResource) complement.getGeneratedFile());
-        } else if (this.project != null) {
+            Differencer d= new Differencer();
+            Object differences = d.findDifferences(false, monitor, null, null, left, right);
+            return differences;
+        } 
+        
+        if (this.project != null) {
             System.out.println("Comparing the whole project");
             
             IFolder src = ResourceWorker.getSrcRootFolderOfProject(this.project);
@@ -77,7 +78,11 @@ public class CompareInput extends CompareEditorInput {
             this.left = new ResourceNode((IResource) src);
             this.right = new ResourceNode((IResource) gen);
             
+            DifferencerWithIgnores d= new DifferencerWithIgnores();
+            Object differences = d.findDifferences(false, monitor, null, null, left, right);
+            return differences;
         }
+        return null;
     }
 
 }
