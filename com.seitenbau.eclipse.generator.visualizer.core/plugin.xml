@@ -210,10 +210,11 @@
         <objectContribution id="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.objectContribute.showOverview"
             objectClass="org.eclipse.jdt.core.IOpenable">
             <action
-               label="DGV: Show Overview for this Project"
-               class="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.action.ShowOverviewAction"
-               menubarPath="additions"
-               id="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.action.showOverview">
+                  class="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.action.ShowOverviewAction"
+                  icon="icons/search.gif"
+                  id="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.action.showOverview"
+                  label="DGV: Tree Diff (Overview)"
+                  menubarPath="additions">
             </action>
         </objectContribution>
     </extension>
