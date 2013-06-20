@@ -113,7 +113,7 @@ public class DatenmodellGeneratorVisualizerPlugin extends AbstractUIPlugin imple
     @Override
     public void earlyStartup() {
         if (getDefault().getPreferenceStore().getBoolean(MainPrefPage.PLUGIN_ACTIVE_STARTUP)) {
-            ResourceWorker.scheduleFullWorkspaceScan();
+            ResourceWorker.scheduleFullWorkspaceScan(3000);
         } else {
             try {
                 MarkerFactory.deleteAllMarkers(ResourcesPlugin.getWorkspace().getRoot());

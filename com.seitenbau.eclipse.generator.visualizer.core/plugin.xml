@@ -205,18 +205,39 @@
           </initializer>
     </extension>
     
-    <!-- Popup menu to add a menu to right click of a java file in the package explorer-->  
-    <extension point="org.eclipse.ui.popupMenus">
-        <objectContribution id="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.objectContribute.showOverview"
-            objectClass="org.eclipse.jdt.core.IOpenable">
-            <action
-                  class="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.action.ShowOverviewAction"
-                  icon="icons/search.gif"
-                  id="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.action.showOverview"
-                  label="DGV: Tree Diff (Overview)"
-                  menubarPath="additions">
-            </action>
-        </objectContribution>
+    <!-- Popup menu to add a menu to right click of a java file in the package explorer-->
+    <extension point="org.eclipse.ui.menus">
+        <!-- submenu: http://stackoverflow.com/questions/15953454/how-to-contribute-to-a-sub-menu-of-context-menu -->
+        <menuContribution locationURI="popup:org.eclipse.jdt.ui.PackageExplorer?after=additions">
+            <menu id="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.command.rootmenu" 
+              label="Datenmodell Generator Visualizer" 
+              icon="icons/dgv.gif">
+                <visibleWhen>
+                    <with variable="selection">
+                        <iterate ifEmpty="false" operator="or">
+                            <instanceof value="org.eclipse.core.resources.IProjectNature"/>
+                        </iterate>
+                    </with>
+               </visibleWhen>
+            </menu>
+        </menuContribution>
+        <menuContribution locationURI="popup:com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.command.rootmenu">
+            <command commandId="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.command.treeDiff"
+              label="Tree Diff" icon="icons/search.gif" style="push">
+            </command>
+            <command commandId="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.command.reset"
+              label="Reset all Markers" icon="icons/refresh.gif" style="push">
+            </command>
+        </menuContribution>
+    </extension>
+    
+    <extension point="org.eclipse.ui.commands">
+        <command defaultHandler="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.menu.TreeDiffMenuHandler"
+          id="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.command.treeDiff" name="TreeDiff">
+        </command>
+        <command defaultHandler="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.menu.ResetHandler"
+          id="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.command.reset" name="Reset">
+        </command>
     </extension>
 
 </plugin>
