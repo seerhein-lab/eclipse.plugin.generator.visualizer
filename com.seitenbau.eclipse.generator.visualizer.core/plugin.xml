@@ -54,7 +54,7 @@
         <specification
           annotationType="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.annotation.generated"
           label="Datenmodell Generator (generated)"
-          icon="icons/generated.gif"
+          icon="icons/fontAwesome/generated.png"
           overviewRulerPreferenceKey="dgvGeneratedRuler"
           overviewRulerPreferenceValue="true"
           colorPreferenceKey="dgvGeneratedColor"
@@ -75,7 +75,7 @@
         <specification
           annotationType="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.annotation.added"
           label="Datenmodell Generator (added)"
-          icon="icons/added.gif"
+          icon="icons/fontAwesome/plus.png"
           overviewRulerPreferenceKey="dgvAddedRuler"
           overviewRulerPreferenceValue="true"
           colorPreferenceKey="dgvAddedColor"
@@ -96,7 +96,7 @@
         <specification
           annotationType="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.annotation.deleted"
           label="Datenmodell Generator (deleted)"
-          icon="icons/deleted.gif"
+          icon="icons/fontAwesome/minus.png"
           overviewRulerPreferenceKey="dgvDeletedRuler"
           overviewRulerPreferenceValue="false"
           textPreferenceKey="dgvDeletedText"
@@ -115,7 +115,7 @@
         <specification
           annotationType="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.annotation.changedBoth"
           label="Datenmodell Generator (modified)"
-          icon="icons/changedBoth.gif"
+          icon="icons/fontAwesome/modified.png"
           overviewRulerPreferenceKey="dgvChangedBothRuler"
           overviewRulerPreferenceValue="true"
           colorPreferenceKey="dgvChangedBothColor"
@@ -211,7 +211,7 @@
         <menuContribution locationURI="popup:org.eclipse.jdt.ui.PackageExplorer?after=additions">
             <menu id="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.command.rootmenu" 
               label="Datenmodell Generator Visualizer" 
-              icon="icons/dgv.gif">
+              icon="icons/fontAwesome/fire.png">
                 <visibleWhen>
                     <with variable="selection">
                         <iterate ifEmpty="false" operator="or">
@@ -223,10 +223,10 @@
         </menuContribution>
         <menuContribution locationURI="popup:com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.command.rootmenu">
             <command commandId="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.command.treeDiff"
-              label="Tree Diff" icon="icons/search.gif" style="push">
+              label="Tree Diff" icon="icons/fontAwesome/search.png" style="push">
             </command>
             <command commandId="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.command.reset"
-              label="Reset all Markers" icon="icons/refresh.gif" style="push">
+              label="Reset all Markers" icon="icons/fontAwesome/refresh.png" style="push">
             </command>
         </menuContribution>
     </extension>

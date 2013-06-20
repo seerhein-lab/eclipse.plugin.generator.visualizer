@@ -23,7 +23,7 @@ public class OpenInCompareViewResolution extends BaseResolution {
                             .getInstance()
                             .getBundle()
                             .getSymbolicName(), 
-                        "icons/compare.gif").createImage();
+                        "icons/fontAwesome/columns.png").createImage();
 
     public OpenInCompareViewResolution() {
         super(

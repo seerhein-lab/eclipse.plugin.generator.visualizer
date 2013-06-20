@@ -24,7 +24,7 @@ public class JumpToGenFileResolution extends BaseResolution {
                             .getInstance()
                             .getBundle()
                             .getSymbolicName(), 
-                        "icons/jumpto.gif").createImage();
+                        "icons/fontAwesome/share.png").createImage();
     
     public JumpToGenFileResolution() {
         super(

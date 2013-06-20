@@ -108,8 +108,19 @@ public class Complement {
             lineNo++;
         }
         
-        // regexp above found all lines expect of last line (dosn't end with '\n')
-        // so find it here:
+        handleLastLine(result, srcFileAsString, lineNo, offset);
+        
+        return result;
+    }
+
+    /**
+     * Regexp found all lines expect of last line (dosn't end with '\n') so find it here:
+     */
+    private void handleLastLine(
+            Map<Integer, LineAttrs> result,
+            String srcFileAsString, 
+            Integer lineNo, 
+            int offset) {
         int length = srcFileAsString.length();
         
         Stack<Character> lastLineStack = new Stack<Character>();
@@ -132,15 +143,6 @@ public class Complement {
         result.put(lineNo, new LineAttrs(offset, lastLine));
         // offset of last line
         result.put(++lineNo, new LineAttrs(offset + lastLine.length(), "<<<<< this is the end"));
-        
-//        String[] split = getSrcFileAsString().split("\\r?\\n");
-//        int offset = 0;
-//        for (int i = 0; i < split.length; i++) {
-//            result.put(i, new LineAttrs(offset, split[i]));
-//            offset += split[i].length();
-//        }
-        
-        return result;
     }
     
     @Override
