@@ -55,10 +55,12 @@ public class DifferencerWithIgnores extends Differencer {
                     for (RangeDifference df : differences) {
                         if (! checkDiffIsAIgnoreLine(left, right, df)) {
                             // we found a diff which isn't on our ignore list.
+//                            System.out.println("I can't ignore " + left.getName() + " because of diff " + df);
                             return false;
                         }
                     }
                     // we found diffs, but all these diffs are on our ignore list.
+//                    System.out.println("All lines with diff in file mathes the ignores: " + left.getName());
                     return true;
                     
                 } catch (Exception e) {
@@ -103,7 +105,7 @@ public class DifferencerWithIgnores extends Differencer {
     private boolean matches(String candidate) {
         String regexp = getIgnoresAsRegexp();
         if (candidate != null && candidate.matches(regexp) ) {
-//            System.out.println("!BINGO! Ignoring because of line: " + candidate);
+//            System.out.println("!BINGO! Ignoring because of line: '" + candidate + "'");
             return true;
         }
         return false;

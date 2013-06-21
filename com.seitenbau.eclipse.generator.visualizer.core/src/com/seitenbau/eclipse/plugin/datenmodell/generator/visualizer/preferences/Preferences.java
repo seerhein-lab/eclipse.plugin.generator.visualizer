@@ -79,13 +79,13 @@ public class Preferences extends PreferencePage implements IWorkbenchPreferenceP
         
         // CB activation of plugin
         activeAtStartup = new Button(pageComponent, SWT.CHECK);
-        activeAtStartup.setText("&Visualizer runs after eclipse startup");
+        activeAtStartup.setText("&Run after eclipse startup (full workspace)");
         data = new GridData(SWT.FILL, SWT.NONE, true, false);
         data.horizontalSpan = 2;
         activeAtStartup.setLayoutData(data);
 
         activeAtSave = new Button(pageComponent, SWT.CHECK);
-        activeAtSave.setText("&Visualizer runs after saving a resource");
+        activeAtSave.setText("&Remark after saving resources (only changed resources)");
         data = new GridData(SWT.FILL, SWT.NONE, true, false);
         data.horizontalSpan = 2;
         activeAtSave.setLayoutData(data);
