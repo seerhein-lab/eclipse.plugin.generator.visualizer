@@ -13,8 +13,23 @@ import org.eclipse.core.resources.IFile;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.LineComparator;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.common.Constants;
 
+/**
+ * This is a special Differencer.
+ * He will ignore changed lines which matches the given pattern(s).
+ */
 public class DifferencerWithIgnores extends Differencer {
     
+    /** array of ignore patterns. */
+    private String[] ignores;
+    
+    /**
+     * A Differencer who will ignore changed lines which matches the given pattern(s).
+     * @param ignores patterns (regexp) to ignore.
+     */
+    public DifferencerWithIgnores(String[] ignores) {
+        this.ignores = ignores;
+    }
+
     @Override
     protected boolean contentsEqual(Object input1, Object input2) {
         if (input1 instanceof ResourceNode && input2 instanceof ResourceNode) {
@@ -37,15 +52,14 @@ public class DifferencerWithIgnores extends Differencer {
                         return true;
                     }
                     
-                    if (differences.length == 1) {
-                        if (checkSvnIdLine(left, differences[0])) {
-                            return true;
+                    for (RangeDifference df : differences) {
+                        if (! checkDiffIsAIgnoreLine(left, df)) {
+                            // we found a diff which isn't on our ignore list.
+                            return false;
                         }
-                        return false;
                     }
-                    
-                    // diffs > 1
-                    return false;
+                    // we found diffs, but all these diffs are on our ignore list.
+                    return true;
                     
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -53,13 +67,14 @@ public class DifferencerWithIgnores extends Differencer {
                 }
             }
         }
+        // not a resourceNode ... go the normal way...
         return super.contentsEqual(input1, input2);
     }
     
-    private boolean checkSvnIdLine(IFile file, RangeDifference diff) {
+    private boolean checkDiffIsAIgnoreLine(IFile file, RangeDifference diff) {
         
         if (diff.leftLength() > 1) {
-            // SVN ID is only one line!
+            // only one line is supported by now.
             return false;
         }
         
@@ -69,9 +84,9 @@ public class DifferencerWithIgnores extends Differencer {
             
             String candidate = lines.get(diff.leftStart());
             
-            String regexpSvnId = ".*\\$Id:.*";
-            if (candidate != null && candidate.matches(regexpSvnId) ) {
-//                System.out.println("BINGO: SVN ID: " + candidate + " <-- " + file.getName());
+            String regexp = getIgnoresAsRegexp();
+            if (candidate != null && candidate.matches(regexp) ) {
+//                System.out.println("!BINGO! Ignoring because of line: " + candidate + " <-- " + file.getName());
                 return true;
             }
         } catch (Exception e) {
@@ -79,6 +94,23 @@ public class DifferencerWithIgnores extends Differencer {
             return false;
         }
         return false;
+    }
+    
+    private String getIgnoresAsRegexp() {
+        StringBuilder regexp = new StringBuilder();
+        for (String ignore : ignores) {
+            regexp.append("(");
+            regexp.append(ignore);
+            regexp.append(")|");
+        }
+        if (regexp.length() > 0) {
+            // cut off last '|'
+            regexp.setLength(regexp.length() - 1);
+        }
+        String result = regexp.toString();
+//        System.out.println(result);
+        return result;
+        
     }
 
 }

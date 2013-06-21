@@ -301,15 +301,16 @@ public class Preferences extends PreferencePage implements IWorkbenchPreferenceP
     /**
      * Returns the bad words preference.
      */
-    public String[] getPreferenceForIgnores() {
-        return convert(getPreferenceStore().getString(IGNORE_PREFERENCE));
+    public static String[] getPreferenceForIgnores() {
+        IPreferenceStore store = DatenmodellGeneratorVisualizerPlugin.getDefault().getPreferenceStore();
+        return convert(store.getString(IGNORE_PREFERENCE));
     }
         
     /**
      * http://www.eclipse.org/articles/article.php?file=Article-Preferences/article.html
      * Converts PREFERENCE_DELIMITER delimited String to a String array.
      */
-    private String[] convert(String preferenceValue) {
+    private static String[] convert(String preferenceValue) {
         StringTokenizer tokenizer = new StringTokenizer(preferenceValue, PREFERENCE_DELIMITER);
         int tokenCount = tokenizer.countTokens();
         String[] elements = new String[tokenCount];

@@ -18,6 +18,9 @@ import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.dto.LineAtt
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.MarkerFactory;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.MarkerFactory.MarkerType;
 
+/**
+ * Business logic to compute and render markers and annotations for differences between a complement.
+ */
 public class Differ {
     
     /**

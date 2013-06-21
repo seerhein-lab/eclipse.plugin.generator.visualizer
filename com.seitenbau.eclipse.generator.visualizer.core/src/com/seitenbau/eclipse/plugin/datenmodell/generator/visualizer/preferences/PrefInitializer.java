@@ -16,8 +16,8 @@ public class PrefInitializer extends AbstractPreferenceInitializer {
         store.setDefault(Preferences.COMPLEMENT_SRC_ROOT, "src/main/java");
         store.setDefault(
                 Preferences.IGNORE_PREFERENCE, 
-                "one" + Preferences.PREFERENCE_DELIMITER
-                + "two");
+                ".*\\$Id:.*" + Preferences.PREFERENCE_DELIMITER
+                + "^import.*");
     }
 
 }

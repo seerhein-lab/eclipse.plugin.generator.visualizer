@@ -14,6 +14,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.diff.DifferencerWithIgnores;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.dto.Complement;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.job.ResourceWorker;
+import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.preferences.Preferences;
 
 /**
  * 
@@ -78,7 +79,8 @@ public class CompareInput extends CompareEditorInput {
             this.left = new ResourceNode((IResource) src);
             this.right = new ResourceNode((IResource) gen);
             
-            DifferencerWithIgnores d= new DifferencerWithIgnores();
+            String[] ignores = Preferences.getPreferenceForIgnores();
+            DifferencerWithIgnores d= new DifferencerWithIgnores(ignores);
             Object differences = d.findDifferences(false, monitor, null, null, left, right);
             return differences;
         }
