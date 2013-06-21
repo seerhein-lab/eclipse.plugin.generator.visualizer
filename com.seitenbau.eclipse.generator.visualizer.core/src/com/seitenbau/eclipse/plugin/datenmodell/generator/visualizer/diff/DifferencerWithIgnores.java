@@ -53,7 +53,7 @@ public class DifferencerWithIgnores extends Differencer {
                     }
                     
                     for (RangeDifference df : differences) {
-                        if (! checkDiffIsAIgnoreLine(left, df)) {
+                        if (! checkDiffIsAIgnoreLine(left, right, df)) {
                             // we found a diff which isn't on our ignore list.
                             return false;
                         }
@@ -71,27 +71,40 @@ public class DifferencerWithIgnores extends Differencer {
         return super.contentsEqual(input1, input2);
     }
     
-    private boolean checkDiffIsAIgnoreLine(IFile file, RangeDifference diff) {
+    private boolean checkDiffIsAIgnoreLine(IFile left, IFile right, RangeDifference diff) {
         
-        if (diff.leftLength() > 1) {
+        if (diff.leftLength() > 1 || diff.rightLength() > 1) {
             // only one line is supported by now.
             return false;
         }
         
         try {
-            InputStream contents = file.getContents();
-            List<String> lines = IOUtils.readLines(contents, Constants.UTF_8);
+            List<String> linesLeft = IOUtils.readLines(left.getContents(), Constants.UTF_8);
+            List<String> linesRight = IOUtils.readLines(right.getContents(), Constants.UTF_8);
             
-            String candidate = lines.get(diff.leftStart());
+            String candidateLeft = linesLeft.get(diff.leftStart());
+            String candidateRight = linesRight.get(diff.rightStart());
             
-            String regexp = getIgnoresAsRegexp();
-            if (candidate != null && candidate.matches(regexp) ) {
-//                System.out.println("!BINGO! Ignoring because of line: " + candidate + " <-- " + file.getName());
+            if (matches(candidateLeft)) {
+                // ignore line in left
+                return true;
+            }
+            if (matches(candidateRight)) {
+                // ignore line in right
                 return true;
             }
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }
+        return false;
+    }
+
+    private boolean matches(String candidate) {
+        String regexp = getIgnoresAsRegexp();
+        if (candidate != null && candidate.matches(regexp) ) {
+//            System.out.println("!BINGO! Ignoring because of line: " + candidate);
+            return true;
         }
         return false;
     }
