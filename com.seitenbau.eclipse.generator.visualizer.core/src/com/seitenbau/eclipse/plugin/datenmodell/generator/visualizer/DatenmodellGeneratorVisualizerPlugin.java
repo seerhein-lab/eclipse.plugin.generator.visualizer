@@ -18,7 +18,7 @@ import org.osgi.framework.BundleContext;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.job.ResourceWorker;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.listener.ResourceChangeReporter;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.MarkerFactory;
-import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.preferences.MainPrefPage;
+import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.preferences.Preferences;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -112,7 +112,7 @@ public class DatenmodellGeneratorVisualizerPlugin extends AbstractUIPlugin imple
 
     @Override
     public void earlyStartup() {
-        if (getDefault().getPreferenceStore().getBoolean(MainPrefPage.PLUGIN_ACTIVE_STARTUP)) {
+        if (getDefault().getPreferenceStore().getBoolean(Preferences.PLUGIN_ACTIVE_STARTUP)) {
             ResourceWorker.scheduleFullWorkspaceScan(3000);
         } else {
             try {

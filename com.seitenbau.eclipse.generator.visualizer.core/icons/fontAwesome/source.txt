@@ -1,0 +1,2 @@
+http://fortawesome.github.io/Font-Awesome/
+https://github.com/odyniec/font-awesome-to-png

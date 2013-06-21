@@ -190,12 +190,11 @@
     </extension>
     
     <!-- Preferences -->
-    <extension
-          point="org.eclipse.ui.preferencePages">
+    <extension point="org.eclipse.ui.preferencePages">
        <page
-             class="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.preferences.MainPrefPage"
-             id="datenmodell-generator-visualizer.preferences.mainpage"
-             name="Datenmodell Gen. Visualizer">
+         class="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.preferences.Preferences"
+         id="datenmodell-generator-visualizer.preferences.pref"
+         name="DG Visualizer">
        </page>
     </extension>
     <extension

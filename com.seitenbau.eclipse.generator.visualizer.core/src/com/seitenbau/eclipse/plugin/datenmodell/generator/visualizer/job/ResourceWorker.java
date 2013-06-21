@@ -19,18 +19,18 @@ import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.Datenmodell
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.diff.Differ;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.dto.Complement;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.MarkerFactory;
-import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.preferences.MainPrefPage;
+import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.preferences.Preferences;
 
 public class ResourceWorker {
     
     final static String complementGenRoot = DatenmodellGeneratorVisualizerPlugin
             .getDefault()
             .getPreferenceStore()
-            .getString(MainPrefPage.COMPLEMENT_GEN_ROOT);
+            .getString(Preferences.COMPLEMENT_GEN_ROOT);
     final static String complementSrcRoot = DatenmodellGeneratorVisualizerPlugin
             .getDefault()
             .getPreferenceStore()
-            .getString(MainPrefPage.COMPLEMENT_SRC_ROOT);
+            .getString(Preferences.COMPLEMENT_SRC_ROOT);
     
     public static IFolder getGenRootFolderOfProject(IProject project) {
         IFolder ungemergt = project.getFolder(complementGenRoot);

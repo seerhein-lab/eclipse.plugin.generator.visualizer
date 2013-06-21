@@ -11,7 +11,7 @@ import org.eclipse.core.runtime.CoreException;
 
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.DatenmodellGeneratorVisualizerPlugin;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.job.ResourceWorker;
-import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.preferences.MainPrefPage;
+import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.preferences.Preferences;
 
 /**
  * Listens on resource change events.
@@ -24,7 +24,7 @@ public class ResourceChangeReporter implements IResourceChangeListener {
         boolean activeOnSave = DatenmodellGeneratorVisualizerPlugin
                 .getDefault()
                 .getPreferenceStore()
-                .getBoolean(MainPrefPage.PLUGIN_ACTIVE_SAVE);
+                .getBoolean(Preferences.PLUGIN_ACTIVE_SAVE);
         if (!activeOnSave) {
             return;
         }
