@@ -18,10 +18,5 @@ public class DatenmodellGeneratorVisualizerPluginTest {
         String actual = bundleContext.getBundle().getSymbolicName();
         assertEquals("com.seitenbau.eclipse.generator.visualizer.core", actual);
     }
-    
-    @Test
-    public void testFail() throws Exception {
-        fail("not yet implemented");
-    }
 
 }
