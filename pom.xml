@@ -42,6 +42,7 @@
             </activation>
             <modules>
                 <module>com.seitenbau.eclipse.generator.visualizer.core</module>
+                <module>com.seitenbau.eclipse.generator.visualizer.core.test</module>
                 <module>com.seitenbau.eclipse.generator.visualizer.feature</module>
                 <module>com.seitenbau.eclipse.generator.visualizer.repository</module>
             </modules>
