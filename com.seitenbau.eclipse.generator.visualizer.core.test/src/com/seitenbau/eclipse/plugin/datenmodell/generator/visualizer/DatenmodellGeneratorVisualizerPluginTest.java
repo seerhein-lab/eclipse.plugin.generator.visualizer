@@ -7,8 +7,6 @@ import org.osgi.framework.FrameworkUtil;
 
 public class DatenmodellGeneratorVisualizerPluginTest {
     
-    DatenmodellGeneratorVisualizerPlugin sut;
-    
     @Test
     public void testBundleId() throws Exception {
         
