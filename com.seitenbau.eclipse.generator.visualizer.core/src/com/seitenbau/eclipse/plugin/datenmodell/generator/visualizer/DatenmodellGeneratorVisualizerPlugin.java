@@ -5,6 +5,7 @@ import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.swt.widgets.Shell;
@@ -16,6 +17,7 @@ import org.eclipse.ui.texteditor.ITextEditor;
 import org.osgi.framework.BundleContext;
 
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.job.ResourceWorker;
+import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.listener.PropertyChangeReporter;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.listener.ResourceChangeReporter;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.MarkerFactory;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.preferences.Preferences;
@@ -58,6 +60,9 @@ public class DatenmodellGeneratorVisualizerPlugin extends AbstractUIPlugin imple
         // listener
         IResourceChangeListener listener = new ResourceChangeReporter();
         ResourcesPlugin.getWorkspace().addResourceChangeListener(listener, IResourceChangeEvent.POST_CHANGE);
+        
+        IPropertyChangeListener prefChangeReporter = new PropertyChangeReporter();
+        getDefault().getPreferenceStore().addPropertyChangeListener(prefChangeReporter);
     }
 
     /*
@@ -116,7 +121,7 @@ public class DatenmodellGeneratorVisualizerPlugin extends AbstractUIPlugin imple
             ResourceWorker.scheduleFullWorkspaceScan(3000);
         } else {
             try {
-                MarkerFactory.deleteAllMarkers(ResourcesPlugin.getWorkspace().getRoot());
+                MarkerFactory.deleteAllMarkers();
             } catch (CoreException e) {
                 e.printStackTrace();
             }

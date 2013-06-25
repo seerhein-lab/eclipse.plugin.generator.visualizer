@@ -9,6 +9,7 @@ import java.util.Map;
 import org.eclipse.compare.rangedifferencer.RangeDifference;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.text.Position;
 import org.eclipse.ui.texteditor.MarkerUtilities;
@@ -130,8 +131,8 @@ public class MarkerFactory {
         removeMarkers(allMarkersInResource);
     }
     
-    public static void deleteAllMarkers(IResource resource) throws CoreException {
-        List<IMarker> allMarkers = findAllMarkers(resource);
+    public static void deleteAllMarkers() throws CoreException {
+        List<IMarker> allMarkers = findAllMarkers(ResourcesPlugin.getWorkspace().getRoot());
         removeMarkers(allMarkers);
     }
     

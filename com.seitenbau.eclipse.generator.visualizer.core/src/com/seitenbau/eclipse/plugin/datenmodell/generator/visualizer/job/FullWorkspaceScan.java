@@ -78,6 +78,9 @@ public class FullWorkspaceScan extends Job {
         myMonitor.subTask("Looking for candidates ...");
         Map<String, List<Complement>> result = new HashMap<String, List<Complement>>();
         
+        // First of all: clean up
+        MarkerFactory.deleteAllMarkers();
+        
         IWorkspace workspace = ResourcesPlugin.getWorkspace();
         IWorkspaceRoot workspaceRoot = workspace.getRoot();
         for (IProject project : workspaceRoot.getProjects()) {
@@ -100,8 +103,6 @@ public class FullWorkspaceScan extends Job {
      */
     private static List<Complement> scanProject(IProject project) throws CoreException {
         List<Complement> complementResult = new ArrayList<Complement>();
-        // First of all: clean up
-        MarkerFactory.deleteAllMarkers(project);
         
         IFolder ungemegt = ResourceWorker.getGenRootFolderOfProject(project);
         

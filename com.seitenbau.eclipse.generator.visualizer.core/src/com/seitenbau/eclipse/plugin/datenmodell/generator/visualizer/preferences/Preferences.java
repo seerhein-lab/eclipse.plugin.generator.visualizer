@@ -8,6 +8,8 @@ import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.preference.StringFieldEditor;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -32,7 +34,7 @@ import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.common.Cons
  * @see org.eclipse.team.internal.ui.preferences.IgnorePreferencePage.class
  *
  */
-public class Preferences extends PreferencePage implements IWorkbenchPreferencePage, Listener {
+public class Preferences extends PreferencePage implements IWorkbenchPreferencePage, Listener, SelectionListener {
     
     public static final String PLUGIN_ACTIVE_SAVE = Constants.PLUGIN_NS_PREFIX + ".prefs.pluginActiveSave";
     public static final String PLUGIN_ACTIVE_STARTUP = Constants.PLUGIN_NS_PREFIX + ".prefs.pluginActiveStartup";
@@ -79,10 +81,12 @@ public class Preferences extends PreferencePage implements IWorkbenchPreferenceP
         
         // CB activation of plugin
         activeAtStartup = new Button(pageComponent, SWT.CHECK);
-        activeAtStartup.setText("&Run after eclipse startup (full workspace)");
+        activeAtStartup.setText("&Plugin is enabled");
         data = new GridData(SWT.FILL, SWT.NONE, true, false);
         data.horizontalSpan = 2;
         activeAtStartup.setLayoutData(data);
+//        activeAtStartup.addListener(SWT.FOCUSED, this);
+        activeAtStartup.addSelectionListener(this);
 
         activeAtSave = new Button(pageComponent, SWT.CHECK);
         activeAtSave.setText("&Remark after saving resources (only changed resources)");
@@ -197,7 +201,7 @@ public class Preferences extends PreferencePage implements IWorkbenchPreferenceP
             handleSelection();
         }
     }
-
+    
     private void promptForIgnoreRegexp() {
         IgnoreInputDialog dialog = new IgnoreInputDialog(
                 getControl().getShell(), 
@@ -258,6 +262,10 @@ public class Preferences extends PreferencePage implements IWorkbenchPreferenceP
         for (String val : ignore) {
             TableItem item = new TableItem(ignoreTable, SWT.NONE);
             item.setText(val);
+        }
+        
+        if (activeAtStartup.getSelection()) {
+            activeAtSave.setEnabled(true);
         }
     }
     
@@ -331,6 +339,22 @@ public class Preferences extends PreferencePage implements IWorkbenchPreferenceP
             buffer.append(PREFERENCE_DELIMITER);
         }
         getPreferenceStore().setValue(IGNORE_PREFERENCE, buffer.toString());
+    }
+
+    @Override
+    public void widgetSelected(SelectionEvent e) {
+        if(e.getSource() == activeAtStartup) {
+            if (!activeAtStartup.getSelection()) {
+                activeAtSave.setEnabled(false);
+            } else {
+                activeAtSave.setEnabled(true);
+            }
+        }
+    }
+
+    @Override
+    public void widgetDefaultSelected(SelectionEvent e) {
+        // nothing?
     }
 
 }

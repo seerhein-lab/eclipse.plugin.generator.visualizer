@@ -28,6 +28,13 @@ public class ResourceChangeReporter implements IResourceChangeListener {
         if (!activeOnSave) {
             return;
         }
+        boolean enabled = DatenmodellGeneratorVisualizerPlugin
+                .getDefault()
+                .getPreferenceStore()
+                .getBoolean(Preferences.PLUGIN_ACTIVE_STARTUP);
+        if (!enabled) {
+            return;
+        }
         
         IResourceDelta rootDelta = event.getDelta();
         
