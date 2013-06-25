@@ -1,5 +1,6 @@
 package com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.quickfix;
 
+import org.eclipse.compare.CompareConfiguration;
 import org.eclipse.compare.CompareNavigator;
 import org.eclipse.compare.CompareUI;
 import org.eclipse.compare.ICompareNavigator;
@@ -46,7 +47,7 @@ public class OpenInCompareViewResolution implements IMarkerResolution2 {
                                     (IFile) marker.getResource(), 
                                     marker.getResource().getProject());
                 
-                CompareInput input = new CompareInput(toCompare);
+                CompareInput input = new CompareInput(toCompare, getCompareConfig(), "Complement Compare View");
                 CompareUI.openCompareEditorOnPage(input, page);
 
                 CompareNavigator navigator = (CompareNavigator) input.getAdapter(ICompareNavigator.class);
@@ -65,6 +66,15 @@ public class OpenInCompareViewResolution implements IMarkerResolution2 {
             }
         }
 
+    }
+
+    private CompareConfiguration getCompareConfig() {
+        CompareConfiguration cc = new CompareConfiguration();
+        cc.setLeftEditable(true);
+        cc.setLeftLabel("Source file");
+        cc.setRightLabel("Fully generated file");
+        cc.setProperty(CompareConfiguration.IGNORE_WHITESPACE, true);
+        return cc;
     }
 
     @Override

@@ -31,27 +31,26 @@ public class CompareInput extends CompareEditorInput {
 
     private ResourceNode right;
     
-    private static CompareConfiguration config = new CompareConfiguration();
-    
     static {
         // TODO: save
-        config.setLeftEditable(true);
-        config.setLeftLabel("src file");
-        config.setRightLabel("fully generated file");
+//        config.setLeftEditable(true);
+//        config.setLeftLabel("src file");
+//        config.setRightLabel("fully generated file");
         // it is important to NOT ignore whitespaces in order to jump 
         // to the correct diff at startup of the compare view.
-        config.setProperty(CompareConfiguration.IGNORE_WHITESPACE, false);
+//        config.setProperty(CompareConfiguration.IGNORE_WHITESPACE, false);
     }
     
-    public CompareInput(Complement toCompare) {
-        super(config);
+    public CompareInput(Complement toCompare, CompareConfiguration cc, String viewTitle) {
+        super(cc);
         this.complement = toCompare;
-        setTitle("Complement Compare View");
+        setTitle(viewTitle);
     }
     
-    public CompareInput(IProject project) {
-        super(config);
+    public CompareInput(IProject project, CompareConfiguration cc, String viewTitle) {
+        super(new CompareConfiguration());
         this.project = project;
+        setTitle(viewTitle);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.menu;
 
+import org.eclipse.compare.CompareConfiguration;
 import org.eclipse.compare.CompareUI;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -29,15 +30,25 @@ public class TreeDiffMenuHandler extends AbstractHandler {
             IProjectNature projectNature = (IProjectNature) firstElement;
             IProject project = projectNature.getProject();
 
-            IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-            CompareUI.openCompareEditorOnPage(new CompareInput(project), page);
+            IWorkbenchPage page = PlatformUI.getWorkbench()
+                    .getActiveWorkbenchWindow().getActivePage();
+            CompareUI.openCompareEditorOnPage(new CompareInput(project, getCompareConfig(), "Tree Diff (some resources might be ignored)"), page);
         } else {
-          MessageDialog.openInformation(
-                  shell, 
-                  "Info",
-                  "Please select a Project");
+            MessageDialog.openInformation(shell, "Info", "Please select a Project");
         }
         return null;
+    }
+
+    private CompareConfiguration getCompareConfig() {
+        CompareConfiguration cc = new CompareConfiguration();
+        cc.setLeftEditable(true);
+        cc.setLeftLabel("Source file");
+        cc.setRightLabel("Fully generated file");
+        // it is important to NOT ignore whitespace in order to jump
+        // to the correct diff at startup of the compare view.
+        cc.setProperty(CompareConfiguration.IGNORE_WHITESPACE, false);
+        
+        return cc;
     }
 
 }
