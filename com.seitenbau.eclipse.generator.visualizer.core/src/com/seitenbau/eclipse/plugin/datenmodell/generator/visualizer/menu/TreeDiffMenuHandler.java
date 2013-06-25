@@ -44,9 +44,7 @@ public class TreeDiffMenuHandler extends AbstractHandler {
         cc.setLeftEditable(true);
         cc.setLeftLabel("Source file");
         cc.setRightLabel("Fully generated file");
-        // it is important to NOT ignore whitespace in order to jump
-        // to the correct diff at startup of the compare view.
-        cc.setProperty(CompareConfiguration.IGNORE_WHITESPACE, false);
+        cc.setProperty(CompareConfiguration.IGNORE_WHITESPACE, true);
         
         return cc;
     }

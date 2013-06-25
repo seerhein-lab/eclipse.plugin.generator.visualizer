@@ -73,7 +73,9 @@ public class OpenInCompareViewResolution implements IMarkerResolution2 {
         cc.setLeftEditable(true);
         cc.setLeftLabel("Source file");
         cc.setRightLabel("Fully generated file");
-        cc.setProperty(CompareConfiguration.IGNORE_WHITESPACE, true);
+        // it is important to NOT ignore whitespace in order to jump
+        // to the correct diff at startup of the compare view.
+        cc.setProperty(CompareConfiguration.IGNORE_WHITESPACE, false);
         return cc;
     }
 
