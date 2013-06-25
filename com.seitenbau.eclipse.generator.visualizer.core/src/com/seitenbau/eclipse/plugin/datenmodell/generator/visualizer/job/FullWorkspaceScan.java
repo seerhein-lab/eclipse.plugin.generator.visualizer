@@ -40,7 +40,7 @@ public class FullWorkspaceScan extends Job {
         FullWorkspaceScan.myMonitor = monitor;
         progress = 0;
         
-        monitor.beginTask("Datenmodell Generator Visualizer - Full Workspace Scan", totalWork);
+        myMonitor.beginTask("DG Visualizer - Full Workspace Scan", totalWork);
         
         try {
             doItNow();
@@ -48,7 +48,7 @@ public class FullWorkspaceScan extends Job {
         } catch (CoreException e) {
             e.printStackTrace();
         }
-        monitor.done();
+        myMonitor.done();
         return Status.OK_STATUS;
     }
     
@@ -56,16 +56,16 @@ public class FullWorkspaceScan extends Job {
         Map<String, List<Complement>> candidates = findCandidates();
         // monitor update
         int remainig = totalWork - progress;
-        int incStep = remainig / candidates.size();
+        int incStep = remainig / candidates.keySet().size();
 
         for (Entry<String, List<Complement>> toAnnotate : candidates.entrySet()) {
-            myMonitor.subTask("Datenmodell Generator Visualizer - Adding Markers and Annotations to Project " + toAnnotate.getKey());
-            progress += incStep;
-            myMonitor.worked(progress);
+            myMonitor.subTask("Adding Markers to Project '" + toAnnotate.getKey() + "'");
             
             for (Complement anno : toAnnotate.getValue()) {
                 Differ.computeAndRenderAnnotations(anno);
             }
+            myMonitor.worked(incStep);
+            progress += incStep;
         }
     }
     
@@ -86,7 +86,9 @@ public class FullWorkspaceScan extends Job {
         for (IProject project : workspaceRoot.getProjects()) {
             if (project.isOpen()) {
                 List<Complement> complements = scanProject(project);
-                result.put(project.getName(), complements);
+                if (!complements.isEmpty()) {
+                    result.put(project.getName(), complements);
+                }
             }
         }
         progress = 10;
