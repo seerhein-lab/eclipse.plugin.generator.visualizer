@@ -40,7 +40,7 @@ public class FullWorkspaceScan extends Job {
         FullWorkspaceScan.myMonitor = monitor;
         progress = 0;
         
-        myMonitor.beginTask("DG Visualizer - Full Workspace Scan", totalWork);
+        myMonitor.beginTask("Full Workspace Scan", totalWork);
         
         try {
             doItNow();
@@ -75,7 +75,7 @@ public class FullWorkspaceScan extends Job {
      * @throws CoreException
      */
     private static Map<String, List<Complement>> findCandidates() throws CoreException {
-        myMonitor.subTask("Looking for candidates ...");
+        myMonitor.subTask("Looking for candidates.");
         Map<String, List<Complement>> result = new HashMap<String, List<Complement>>();
         
         // First of all: clean up

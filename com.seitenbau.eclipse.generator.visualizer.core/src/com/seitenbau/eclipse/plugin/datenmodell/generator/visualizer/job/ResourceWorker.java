@@ -92,7 +92,7 @@ public class ResourceWorker {
         fullWorkspaceScanJob.schedule(delay);
     }
 
-    private static Job fullWorkspaceScanJob = new FullWorkspaceScan("Full Workspace Scan");
+    private static Job fullWorkspaceScanJob = new FullWorkspaceScan("DG Visualizer - Full Workspace Scan");
  
     
     /**
