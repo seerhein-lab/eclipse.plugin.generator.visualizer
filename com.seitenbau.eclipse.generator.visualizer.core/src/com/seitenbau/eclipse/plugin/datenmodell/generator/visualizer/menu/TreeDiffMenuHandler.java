@@ -32,7 +32,7 @@ public class TreeDiffMenuHandler extends AbstractHandler {
 
             IWorkbenchPage page = PlatformUI.getWorkbench()
                     .getActiveWorkbenchWindow().getActivePage();
-            CompareUI.openCompareEditorOnPage(new CompareInput(project, getCompareConfig(), "Tree Diff (some resources might be ignored)"), page);
+            CompareUI.openCompareEditorOnPage(new CompareInput(project, getCompareConfig(), "Tree Diff (filtered)"), page);
         } else {
             MessageDialog.openInformation(shell, "Info", "Please select a Project");
         }
