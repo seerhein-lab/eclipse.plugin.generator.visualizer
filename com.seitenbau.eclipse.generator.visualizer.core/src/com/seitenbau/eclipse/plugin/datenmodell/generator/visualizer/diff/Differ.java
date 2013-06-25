@@ -36,7 +36,7 @@ public class Differ {
             RangeDifference[] compareOnLevelLine = compareOnLevelLine(complement);
 
             Map<Integer, LineAttrs> lines = complement.getLineMapOfSrcFile();
-//            System.out.println(printLineOffset(lines));
+            System.out.println(printLineOffset(lines));
             /*
              * visited lines:
              * 1: these lines have annotations
@@ -46,7 +46,7 @@ public class Differ {
             Arrays.fill(visitedLines, new Integer(0));
             
             // mark changes
-            for (int i = 0; i < compareOnLevelLine.length; i++) {
+            for (int i = 0, diffindex = 0; i < compareOnLevelLine.length; i++) {
                 RangeDifference crt = compareOnLevelLine[i];
 
                 if (! lines.containsKey(crt.leftStart())) {
@@ -55,6 +55,7 @@ public class Differ {
                 }
                 if (lines.containsKey(crt.leftStart())) {
                     if (lines.get(crt.leftStart()).isDoNotMarkMe()) {
+                        diffindex++;
                         continue;
                     }
                 }
@@ -65,11 +66,13 @@ public class Differ {
                         complement, 
                         markerType, 
                         position, 
-                        getAnnotationsMsg(crt.leftStart(), crt.leftEnd()));
+                        getAnnotationsMsg(crt.leftStart(), crt.leftEnd()),
+                        diffindex);
                 
                 for (int v = crt.leftStart(); v <= (crt.leftEnd() - 1); v++) {
                     visitedLines[v] = 1;
                 }
+                diffindex++;
             }
             // last line is only a helper line
             visitedLines[visitedLines.length - 1] = -1;
@@ -88,7 +91,8 @@ public class Differ {
                             complement, 
                             MarkerType.GENERATED, 
                             position, 
-                            getAnnotationsMsg(lineStart, lineEnd));
+                            getAnnotationsMsg(lineStart, lineEnd),
+                            0 /* FIXME */);
                     lineStart = lineEnd;
                 }
             }

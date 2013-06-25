@@ -34,19 +34,19 @@ public class CompareInput extends CompareEditorInput {
     private static CompareConfiguration config = new CompareConfiguration();
     
     static {
-        // TODO: editable, java syntax coloring, ...
+        // TODO: save
         config.setLeftEditable(true);
         config.setLeftLabel("src file");
         config.setRightLabel("fully generated file");
-        config.setProperty(CompareConfiguration.IGNORE_WHITESPACE, true);
-        config.setProperty(CompareConfiguration.USE_OUTLINE_VIEW, true);
+        // it is important to NOT ignore whitespaces in order to jump 
+        // to the correct diff at startup of the compare view.
+        config.setProperty(CompareConfiguration.IGNORE_WHITESPACE, false);
     }
     
     public CompareInput(Complement toCompare) {
         super(config);
         this.complement = toCompare;
-        setTitle("Complement Compare Deluxe.");
-        System.out.println(getCompareConfiguration().isLeftEditable());
+        setTitle("Complement Compare View");
     }
     
     public CompareInput(IProject project) {

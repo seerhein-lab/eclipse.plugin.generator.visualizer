@@ -42,7 +42,7 @@ public class MarkerFactory {
      * Common consts
      */
     public static final String MARKER_ATTR_GEN_FILE_URL = "com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.attr.complement.genFile.url";
-
+    public static final String MARKER_ATTR_DIFF_INDEX = "com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.attr.complement.indexOfDiff";
     public enum MarkerType {
 
         GENERATED(GEN_MARKER, GEN_ANNOTATION, "Generated"), //
@@ -94,7 +94,8 @@ public class MarkerFactory {
             Complement res, 
             MarkerType markerType,
             Position position, 
-            String markerMsg) throws CoreException {
+            String markerMsg,
+            int diffIndex) throws CoreException {
         int start = position.getOffset();
         int end = position.getOffset() + position.getLength();
         
@@ -103,6 +104,7 @@ public class MarkerFactory {
         attrs.put(IMarker.CHAR_END, end);
         attrs.put(IMarker.MESSAGE, markerType.getMarkerPrefix() + ":\n" + markerMsg);
         attrs.put(MARKER_ATTR_GEN_FILE_URL, res.getGeneratedFile().getFullPath().toString());
+        attrs.put(MARKER_ATTR_DIFF_INDEX, diffIndex + "");
         
         MarkerUtilities.createMarker(res.getSrcFile(), attrs, markerType.getMarkerId());
 //        System.out.println("New Marker '" + markerType + "' in " + res.getName() + " at " + position);

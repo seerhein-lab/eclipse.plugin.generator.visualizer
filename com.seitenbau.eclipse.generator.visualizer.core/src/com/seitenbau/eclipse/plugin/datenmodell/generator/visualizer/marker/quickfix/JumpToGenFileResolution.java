@@ -48,7 +48,9 @@ public class JumpToGenFileResolution extends BaseResolution {
             IPath path = new Path(filePath);
             IFile toOpen = marker.getResource().getWorkspace().getRoot().getFile(path);
             try {
-                IDE.openEditor(page, toOpen);
+                /*IEditorPart editor = */IDE.openEditor(page, toOpen);
+                // ref: http://stackoverflow.com/a/12258003/810944
+                // IDE.gotoMarker(editor, marker);
             } catch (PartInitException e) {
                 e.printStackTrace();
             }

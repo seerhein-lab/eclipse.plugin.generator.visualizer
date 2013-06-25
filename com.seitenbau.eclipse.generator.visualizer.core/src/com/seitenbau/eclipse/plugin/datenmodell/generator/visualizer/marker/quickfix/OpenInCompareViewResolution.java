@@ -1,6 +1,8 @@
 package com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.quickfix;
 
+import org.eclipse.compare.CompareNavigator;
 import org.eclipse.compare.CompareUI;
+import org.eclipse.compare.ICompareNavigator;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.swt.graphics.Image;
@@ -47,7 +49,23 @@ public class OpenInCompareViewResolution extends BaseResolution {
                                     (IFile) marker.getResource(), 
                                     marker.getResource().getProject());
                 
-                CompareUI.openCompareEditorOnPage(new CompareInput(toCompare), page);
+                CompareInput input = new CompareInput(toCompare);
+                CompareUI.openCompareEditorOnPage(input, page);
+
+                CompareNavigator navigator = (CompareNavigator) input.getAdapter(ICompareNavigator.class);
+                
+                int indexDiff = Integer.valueOf(marker.getAttribute(MarkerFactory.MARKER_ATTR_DIFF_INDEX, null));
+                // I can't see a simple way to call selectChange(int changeNumber)
+                // TODO: perhaps we should implement our own navigator?
+                while (indexDiff > 0) {
+                    navigator.selectChange(true);
+                    indexDiff--;
+                }
+                
+                // it is possible to search (and replace)
+                // that's cool! But useless at the moment.
+//                IFindReplaceTarget finder = (IFindReplaceTarget) input.getAdapter(IFindReplaceTarget.class);
+//                finder.findAndSelect(0, "last line", true, false, true);
             }
         }
 
