@@ -92,7 +92,7 @@ public class Differ {
                             MarkerType.GENERATED, 
                             position, 
                             getAnnotationsMsg(lineStart, lineEnd),
-                            0 /* FIXME */);
+                            0 /* Generated Code is equal to right; it is impossible to jump to a diff. */);
                     lineStart = lineEnd;
                 }
             }

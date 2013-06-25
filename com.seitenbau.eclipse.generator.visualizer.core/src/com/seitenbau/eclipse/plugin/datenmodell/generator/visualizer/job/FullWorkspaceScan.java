@@ -80,7 +80,6 @@ public class FullWorkspaceScan extends Job {
         
         IWorkspace workspace = ResourcesPlugin.getWorkspace();
         IWorkspaceRoot workspaceRoot = workspace.getRoot();
-        // TODO: --> config!
         for (IProject project : workspaceRoot.getProjects()) {
             if (project.isOpen()) {
                 List<Complement> complements = scanProject(project);

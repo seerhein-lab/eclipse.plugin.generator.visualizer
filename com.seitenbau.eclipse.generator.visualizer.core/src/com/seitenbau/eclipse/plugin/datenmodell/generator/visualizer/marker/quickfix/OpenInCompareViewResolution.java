@@ -52,8 +52,7 @@ public class OpenInCompareViewResolution implements IMarkerResolution2 {
                 CompareNavigator navigator = (CompareNavigator) input.getAdapter(ICompareNavigator.class);
                 
                 int indexDiff = Integer.valueOf(marker.getAttribute(MarkerFactory.MARKER_ATTR_DIFF_INDEX, null));
-                // I can't see a simple way to call selectChange(int changeNumber)
-                // TODO: perhaps we should implement our own navigator?
+                // I can't see a simpler way in order to select diff no. X
                 while (indexDiff > 0) {
                     navigator.selectChange(true);
                     indexDiff--;
