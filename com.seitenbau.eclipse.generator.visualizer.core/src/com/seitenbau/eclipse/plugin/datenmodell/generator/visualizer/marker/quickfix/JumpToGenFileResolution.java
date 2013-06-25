@@ -6,6 +6,7 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.ui.IMarkerResolution2;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
@@ -15,9 +16,9 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.DatenmodellGeneratorVisualizerPlugin;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.MarkerFactory;
 
-public class JumpToGenFileResolution extends BaseResolution {
+public class JumpToGenFileResolution implements IMarkerResolution2 {
     
-    private static final Image icon = 
+    private static final Image image = 
             AbstractUIPlugin
                 .imageDescriptorFromPlugin(
                         DatenmodellGeneratorVisualizerPlugin
@@ -26,13 +27,9 @@ public class JumpToGenFileResolution extends BaseResolution {
                             .getSymbolicName(), 
                         "icons/fontAwesome/share.png").createImage();
     
-    public JumpToGenFileResolution() {
-        super(
-                "Jump to generated complement file", 
-                "Using the provided link the generated complement will be opend in an new edior view.", 
-                icon
-            );
-    }
+    private static final String label = "Jump to generated complement file"; 
+    private static final String description = "Using the provided link the generated complement " +
+            "will be opend in an new edior view."; 
 
     @Override
     public String getLabel() {

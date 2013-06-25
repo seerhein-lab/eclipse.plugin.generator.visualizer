@@ -36,7 +36,7 @@ public class Differ {
             RangeDifference[] compareOnLevelLine = compareOnLevelLine(complement);
 
             Map<Integer, LineAttrs> lines = complement.getLineMapOfSrcFile();
-            System.out.println(printLineOffset(lines));
+//            System.out.println(printLineOffset(lines));
             /*
              * visited lines:
              * 1: these lines have annotations
@@ -118,6 +118,10 @@ public class Differ {
         Position position = new Position(lineStartOffset.getOffset());
         if (lineEndOffset != null) {
             int length = lineEndOffset.getOffset() - lineStartOffset.getOffset();
+            if (length > 1) {
+                // ignore new line (otherwise: two markers at one line).
+                length--;
+            }
             position.setLength(length);
         } else {
             System.err.println("Ui!");

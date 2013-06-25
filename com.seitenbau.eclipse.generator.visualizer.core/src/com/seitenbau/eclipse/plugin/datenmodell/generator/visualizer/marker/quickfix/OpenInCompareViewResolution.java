@@ -6,6 +6,7 @@ import org.eclipse.compare.ICompareNavigator;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.ui.IMarkerResolution2;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -16,9 +17,9 @@ import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.dto.Complem
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.job.ResourceWorker;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.MarkerFactory;
 
-public class OpenInCompareViewResolution extends BaseResolution {
+public class OpenInCompareViewResolution implements IMarkerResolution2 {
 
-    private static final Image icon = 
+    private static final Image image = 
             AbstractUIPlugin
                 .imageDescriptorFromPlugin(
                         DatenmodellGeneratorVisualizerPlugin
@@ -26,15 +27,11 @@ public class OpenInCompareViewResolution extends BaseResolution {
                             .getBundle()
                             .getSymbolicName(), 
                         "icons/fontAwesome/columns.png").createImage();
-
-    public OpenInCompareViewResolution() {
-        super(
-                "Open Complement in a Compare View", 
-                "Opens a compare view. " +
-                "On the left side the source file will be compared with the " +
-                "generated original file on the right side.", 
-                icon);
-    }
+    
+    private static final String label = "Open Complement in a Compare View"; 
+    private static final String description = "Opens a compare view. " +
+            "On the left side the source file will be compared with the " +
+            "generated original file on the right side."; 
 
     @Override
     public void run(IMarker marker) {
