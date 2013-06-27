@@ -34,6 +34,10 @@ public class Differ {
         }
         try {
             RangeDifference[] compareOnLevelLine = compareOnLevelLine(complement);
+            if (compareOnLevelLine == null) {
+                // no diffs
+                return;
+            }
 
             Map<Integer, LineAttrs> lines = complement.getLineMapOfSrcFile();
 //            System.out.println(printLineOffset(lines));

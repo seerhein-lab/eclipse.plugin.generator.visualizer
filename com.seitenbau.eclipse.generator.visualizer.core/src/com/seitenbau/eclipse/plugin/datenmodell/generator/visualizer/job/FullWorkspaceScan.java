@@ -56,9 +56,9 @@ public class FullWorkspaceScan extends Job {
         Map<String, List<Complement>> candidates = findCandidates();
         // monitor update
         int remainig = totalWork - progress;
-        int incStep = remainig / candidates.keySet().size();
 
         for (Entry<String, List<Complement>> toAnnotate : candidates.entrySet()) {
+            int incStep = remainig / candidates.keySet().size();
             myMonitor.subTask("Adding Markers to Project '" + toAnnotate.getKey() + "'");
             
             for (Complement anno : toAnnotate.getValue()) {
