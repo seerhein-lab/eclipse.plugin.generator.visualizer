@@ -41,7 +41,8 @@ public class TreeDiffMenuHandler extends AbstractHandler {
 
     private CompareConfiguration getCompareConfig() {
         CompareConfiguration cc = new CompareConfiguration();
-        cc.setLeftEditable(true);
+        cc.setLeftEditable(false);
+        cc.setRightEditable(false);
         cc.setLeftLabel("Source file");
         cc.setRightLabel("Fully generated file");
         cc.setProperty(CompareConfiguration.IGNORE_WHITESPACE, true);
