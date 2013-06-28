@@ -11,7 +11,7 @@ import org.eclipse.compare.structuremergeviewer.Differencer;
 import org.eclipse.core.resources.IFile;
 
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.LineComparator;
-import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.common.Constants;
+import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.common.Utilities;
 
 /**
  * This is a special Differencer.
@@ -39,12 +39,14 @@ public class DifferencerWithIgnores extends Differencer {
                 IFile left = (IFile) resLeft.getResource();
                 IFile right = (IFile) resRight.getResource();
                 
+                InputStream leftInput = null;
+                InputStream rightInput = null;
                 try {
-                    InputStream leftInput = left.getContents();
-                    InputStream rightInput = right.getContents();
+                    leftInput = left.getContents();
+                    rightInput = right.getContents();
                     
-                    LineComparator leftLineComparator = new LineComparator(leftInput, Constants.UTF_8 );
-                    LineComparator rightLineComparator = new LineComparator(rightInput, Constants.UTF_8 );
+                    LineComparator leftLineComparator = new LineComparator(leftInput, Utilities.getCharset(left) );
+                    LineComparator rightLineComparator = new LineComparator(rightInput, Utilities.getCharset(right) );
                     
                     RangeDifference[] differences = RangeDifferencer.findDifferences(leftLineComparator, rightLineComparator);
                     
@@ -53,7 +55,7 @@ public class DifferencerWithIgnores extends Differencer {
                     }
                     
                     for (RangeDifference df : differences) {
-                        if (! checkDiffIsAIgnoreLine(left, right, df)) {
+                        if (! isDiffIgnorable(left, right, df)) {
                             // we found a diff which isn't on our ignore list.
 //                            System.out.println("I can't ignore " + left.getName() + " because of diff " + df);
                             return false;
@@ -66,6 +68,9 @@ public class DifferencerWithIgnores extends Differencer {
                 } catch (Exception e) {
                     e.printStackTrace();
                     return false;
+                } finally {
+                    IOUtils.closeQuietly(leftInput);
+                    IOUtils.closeQuietly(rightInput);
                 }
             }
         }
@@ -73,11 +78,11 @@ public class DifferencerWithIgnores extends Differencer {
         return super.contentsEqual(input1, input2);
     }
     
-    private boolean checkDiffIsAIgnoreLine(IFile left, IFile right, RangeDifference diff) {
+    private boolean isDiffIgnorable(IFile left, IFile right, RangeDifference diff) {
         
         try {
-            List<String> linesLeft = IOUtils.readLines(left.getContents(), Constants.UTF_8);
-            List<String> linesRight = IOUtils.readLines(right.getContents(), Constants.UTF_8);
+            List<String> linesLeft = IOUtils.readLines(left.getContents(), Utilities.getCharset(left));
+            List<String> linesRight = IOUtils.readLines(right.getContents(), Utilities.getCharset(right));
             
             // left
             for (int line = diff.leftStart(); line < diff.leftEnd(); line++) {
@@ -134,7 +139,6 @@ public class DifferencerWithIgnores extends Differencer {
         String result = regexp.toString();
 //        System.out.println(result);
         return result;
-        
     }
 
 }

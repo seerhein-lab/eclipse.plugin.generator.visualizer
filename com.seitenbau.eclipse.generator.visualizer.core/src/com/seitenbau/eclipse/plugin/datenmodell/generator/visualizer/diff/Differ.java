@@ -13,6 +13,7 @@ import org.eclipse.jface.text.Position;
 
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.LineComparator;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.common.Constants;
+import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.common.Utilities;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.dto.Complement;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.dto.LineAttrs;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.MarkerFactory;
@@ -164,8 +165,8 @@ public class Differ {
         try {
             InputStream leftInput = toCompare.getSrcFile().getContents();
             InputStream rightInput = toCompare.getGenFile().getContents();
-            LineComparator leftLineComparator = new LineComparator(leftInput, Constants.UTF_8 );
-            LineComparator rightLineComparator = new LineComparator(rightInput, Constants.UTF_8 );
+            LineComparator leftLineComparator = new LineComparator(leftInput, Utilities.getCharset(toCompare.getSrcFile()) );
+            LineComparator rightLineComparator = new LineComparator(rightInput, Utilities.getCharset(toCompare.getGenFile()) );
             
             differences = RangeDifferencer.findDifferences(leftLineComparator, rightLineComparator);
         } catch (CoreException e) {

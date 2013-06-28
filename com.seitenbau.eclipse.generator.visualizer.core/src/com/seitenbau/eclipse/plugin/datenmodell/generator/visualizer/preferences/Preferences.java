@@ -120,7 +120,7 @@ public class Preferences extends PreferencePage implements IWorkbenchPreferenceP
 
         ignoreTable = new Table(pageComponent, SWT.MULTI | SWT.BORDER);
         ignoreTable.addListener(SWT.Selection, this);
-        ignoreTable.addListener(SWT.DefaultSelection, this);
+//        ignoreTable.addListener(SWT.DefaultSelection, this);
         data = new GridData(GridData.FILL_BOTH);
         data.heightHint = ignoreTable.getItemHeight() * 7;
         ignoreTable.setLayoutData(data);
@@ -208,7 +208,7 @@ public class Preferences extends PreferencePage implements IWorkbenchPreferenceP
                 "Add Ignore Regexp",
                 "Enter a Regexp to at it to the ignore list.",
                 "",
-                null);
+                new RegexpInputValidator());
         if (dialog.open() == Window.OK) {
             String value = dialog.getValue();
             addIgnoreRegexp(value);

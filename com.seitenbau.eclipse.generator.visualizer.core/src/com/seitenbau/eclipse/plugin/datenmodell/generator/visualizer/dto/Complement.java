@@ -14,7 +14,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 
-import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.common.Constants;
+import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.common.Utilities;
 
 /**
  * Holds the source file and the generated file.
@@ -68,7 +68,7 @@ public class Complement {
         }
         StringWriter writer = new StringWriter();
         IFile file = (IFile) this.srcResource;
-        IOUtils.copy(file.getContents(), writer, Constants.UTF_8);
+        IOUtils.copy(file.getContents(), writer, Utilities.getCharset(file));
         
         return writer.toString();
     }
@@ -79,7 +79,7 @@ public class Complement {
         }
         StringWriter writer = new StringWriter();
         IFile file = (IFile) this.genResource;
-        IOUtils.copy(file.getContents(), writer, Constants.UTF_8);
+        IOUtils.copy(file.getContents(), writer, Utilities.getCharset(file));
         
         return writer.toString();
     }
