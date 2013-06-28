@@ -221,7 +221,20 @@
         </menuContribution>
         
         <!-- context menu -->
+        <!-- package explorer -->
         <menuContribution locationURI="popup:org.eclipse.jdt.ui.PackageExplorer?after=additions">
+            <menu id="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.command.rootmenu" 
+              label="Datenmodell Generator Visualizer" 
+              icon="icons/fontAwesome/fire.png">
+                <visibleWhen checkEnabled="false">
+                    <with variable="activeMenuSelection">
+                        <count value="1" />
+                    </with>
+                </visibleWhen>
+            </menu>
+        </menuContribution>
+        <!-- navigator -->
+        <menuContribution locationURI="popup:org.eclipse.ui.views.ResourceNavigator?after=additions">
             <menu id="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.command.rootmenu" 
               label="Datenmodell Generator Visualizer" 
               icon="icons/fontAwesome/fire.png">

@@ -109,6 +109,10 @@ public class ResourceWorker {
         // 2: main
         // 3: java
         // 4: {package}
+        if (splitted.length < 4) {
+            // the input is a little bit strange, but ok: we can handle this ...
+            return null;
+        }
         String[] startingAtPackageRoot = Arrays.copyOfRange(splitted, 4, splitted.length);
         String packagePath = StringUtils.join(startingAtPackageRoot, '/');
         

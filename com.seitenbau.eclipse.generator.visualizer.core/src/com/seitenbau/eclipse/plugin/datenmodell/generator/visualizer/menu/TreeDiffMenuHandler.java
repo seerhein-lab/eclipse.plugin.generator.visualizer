@@ -37,12 +37,14 @@ public class TreeDiffMenuHandler extends AbstractHandler {
 
         Object firstElement = selection.getFirstElement();
         
-        if (firstElement instanceof IProjectNature) {
+        if (firstElement instanceof IProjectNature) /* package explorer */ {
             IProjectNature projectNature = (IProjectNature) firstElement;
             IProject project = projectNature.getProject();
-
             input = new CompareInput(project, getCompareConfig(), COMPARE_TITLE);
-        } else if (firstElement instanceof IPackageFragment ) {
+        } else if (firstElement instanceof IProject) /* navigator */ {
+            IProject project = (IProject) firstElement;
+            input = new CompareInput(project, getCompareConfig(), COMPARE_TITLE);
+        } else if (firstElement instanceof IPackageFragment) /* package explorer */ {
             IPackageFragment packageFragement = (IPackageFragment) firstElement;
             try {
                 IResource resource = packageFragement.getCorrespondingResource();
@@ -50,7 +52,7 @@ public class TreeDiffMenuHandler extends AbstractHandler {
             } catch (JavaModelException e) {
                 e.printStackTrace();
             }
-        } else if (firstElement instanceof IPackageFragmentRoot) {
+        } else if (firstElement instanceof IPackageFragmentRoot) /* package explorer */ {
             IPackageFragmentRoot packageFragmentRoot = (IPackageFragmentRoot) firstElement;
             try {
                 IResource resource = packageFragmentRoot.getCorrespondingResource();
@@ -58,6 +60,9 @@ public class TreeDiffMenuHandler extends AbstractHandler {
             } catch (JavaModelException e) {
                 e.printStackTrace();
             }
+        } else if (firstElement instanceof IResource) /* navigator */ {
+            IResource resource = (IResource) firstElement;
+            input = new CompareInput(resource, getCompareConfig(), COMPARE_TITLE);
         } else {
             MessageDialog.openInformation(
                     shell, 
