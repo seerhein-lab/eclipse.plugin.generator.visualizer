@@ -17,7 +17,8 @@ public class PrefInitializer extends AbstractPreferenceInitializer {
         store.setDefault(
                 Preferences.IGNORE_PREFERENCE, 
                 ".*\\$Id:.*" + Preferences.PREFERENCE_DELIMITER
-                + "^import.*");
+                + "^import.*" + Preferences.PREFERENCE_DELIMITER
+                + "^\\s*$");
     }
 
 }

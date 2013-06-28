@@ -206,8 +206,8 @@ public class Preferences extends PreferencePage implements IWorkbenchPreferenceP
         IgnoreInputDialog dialog = new IgnoreInputDialog(
                 getControl().getShell(), 
                 "Add Ignore Regexp",
-                "message",
-                "init",
+                "Enter a Regexp to at it to the ignore list.",
+                "",
                 null);
         if (dialog.open() == Window.OK) {
             String value = dialog.getValue();

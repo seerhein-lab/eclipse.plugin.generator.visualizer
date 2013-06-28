@@ -75,31 +75,40 @@ public class DifferencerWithIgnores extends Differencer {
     
     private boolean checkDiffIsAIgnoreLine(IFile left, IFile right, RangeDifference diff) {
         
-        if (diff.leftLength() > 1 || diff.rightLength() > 1) {
-            // only one line is supported by now.
-            return false;
-        }
-        
         try {
             List<String> linesLeft = IOUtils.readLines(left.getContents(), Constants.UTF_8);
             List<String> linesRight = IOUtils.readLines(right.getContents(), Constants.UTF_8);
             
-            String candidateLeft = linesLeft.get(diff.leftStart());
-            String candidateRight = linesRight.get(diff.rightStart());
+            // left
+            for (int line = diff.leftStart(); line < diff.leftEnd(); line++) {
+                String candidateLeft = linesLeft.get(line);
+                if (matches(candidateLeft)) {
+                    // ignore line in left
+                    continue;
+                } else {
+                    // found a diff which we can not ignore.
+                    return false;
+                }
+            }
             
-            if (matches(candidateLeft)) {
-                // ignore line in left
-                return true;
+            // right
+            for (int line = diff.rightStart(); line < diff.rightEnd(); line++) {
+                String candidateRight = linesRight.get(line);
+                if (matches(candidateRight)) {
+                    // ignore line in right
+                    continue;
+                } else {
+                    // found a diff which we can not ignore.
+                    return false;
+                }
             }
-            if (matches(candidateRight)) {
-                // ignore line in right
-                return true;
-            }
+            
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
-        return false;
+        // diffs we found should be ignored.
+        return true;
     }
 
     private boolean matches(String candidate) {
