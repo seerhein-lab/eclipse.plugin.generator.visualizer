@@ -2,6 +2,7 @@ package com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.diff.compa
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.apache.commons.lang3.StringUtils;
 import org.eclipse.compare.CompareConfiguration;
 import org.eclipse.compare.CompareEditorInput;
 import org.eclipse.compare.ResourceNode;
@@ -26,7 +27,7 @@ public class CompareInput extends CompareEditorInput {
     
     private IResource resource;
     
-    private boolean nothingToCompare = false;
+    private String error = null;
     
     public CompareInput(IProject project, CompareConfiguration cc, String viewTitle) {
         super(new CompareConfiguration());
@@ -39,7 +40,7 @@ public class CompareInput extends CompareEditorInput {
         this.resource = resource;
         Complement complement = ResourceWorker.findGeneratedComplement(resource);
         if (complement == null) {
-            nothingToCompare = true;
+            error = "No generated Complement found for " + resource.getFullPath();
         }
         setTitle(viewTitle);
     }
@@ -88,8 +89,12 @@ public class CompareInput extends CompareEditorInput {
         return differences;
     }
     
-    public boolean isNothingToCompare() {
-        return nothingToCompare;
+    public String getError() {
+        return error;
+    }
+    
+    public boolean hasError() {
+        return StringUtils.isNotBlank(error);
     }
 
 }

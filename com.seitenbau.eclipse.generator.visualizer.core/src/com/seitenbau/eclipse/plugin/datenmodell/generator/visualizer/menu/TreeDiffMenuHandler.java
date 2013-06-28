@@ -9,6 +9,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectNature;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jdt.core.IPackageFragment;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
@@ -22,6 +23,8 @@ import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.diff.compar
 
 public class TreeDiffMenuHandler extends AbstractHandler {
 
+    private static String COMPARE_TITLE = "Tree Diff (filtered)";
+
     @Override
     public Object execute(ExecutionEvent event) throws ExecutionException {
         Shell shell = HandlerUtil.getActiveShell(event);
@@ -30,6 +33,7 @@ public class TreeDiffMenuHandler extends AbstractHandler {
 
         IWorkbenchPage page = PlatformUI.getWorkbench()
                 .getActiveWorkbenchWindow().getActivePage();
+        CompareInput input = null;
 
         Object firstElement = selection.getFirstElement();
         
@@ -37,36 +41,37 @@ public class TreeDiffMenuHandler extends AbstractHandler {
             IProjectNature projectNature = (IProjectNature) firstElement;
             IProject project = projectNature.getProject();
 
-            CompareUI.openCompareEditorOnPage(
-                    new CompareInput(
-                            project, 
-                            getCompareConfig(), 
-                            "Tree Diff (filtered)"), 
-                    page);
+            input = new CompareInput(project, getCompareConfig(), COMPARE_TITLE);
         } else if (firstElement instanceof IPackageFragment ) {
             IPackageFragment packageFragement = (IPackageFragment) firstElement;
-            IResource resource;
             try {
-                resource = packageFragement.getCorrespondingResource();
-                
-                CompareInput input = new CompareInput(
-                        resource, 
-                        getCompareConfig(), 
-                        "Tree Diff (filtered)");
-                if (input.isNothingToCompare()) {
-                    MessageDialog.openInformation(shell, "Info", "No generated Complement found for " + resource.getFullPath());
-                    return null;
-                }
-                
-                CompareUI.openCompareEditorOnPage(
-                        input, 
-                        page);
+                IResource resource = packageFragement.getCorrespondingResource();
+                input = new CompareInput(resource, getCompareConfig(), COMPARE_TITLE);
+            } catch (JavaModelException e) {
+                e.printStackTrace();
+            }
+        } else if (firstElement instanceof IPackageFragmentRoot) {
+            IPackageFragmentRoot packageFragmentRoot = (IPackageFragmentRoot) firstElement;
+            try {
+                IResource resource = packageFragmentRoot.getCorrespondingResource();
+                input = new CompareInput(resource, getCompareConfig(), COMPARE_TITLE );
             } catch (JavaModelException e) {
                 e.printStackTrace();
             }
         } else {
-            MessageDialog.openInformation(shell, "Info", "Please select a Project or a Package.");
+            MessageDialog.openInformation(
+                    shell, 
+                    "Info", 
+                    "Please select a Project or a Resource (Source-Folder / Package).");
+            return null;
         }
+        
+        if (input.hasError()) {
+            MessageDialog.openInformation(shell, "Info", input.getError());
+            return null;
+        }
+        CompareUI.openCompareEditorOnPage(input, page);
+        
         return null;
     }
 

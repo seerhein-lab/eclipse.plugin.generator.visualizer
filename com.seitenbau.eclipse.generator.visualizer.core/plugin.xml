@@ -207,8 +207,7 @@
     <!-- Popup menu to add a menu to right click of a java file in the package explorer-->
     <extension point="org.eclipse.ui.menus">
         <!-- submenu: http://stackoverflow.com/questions/15953454/how-to-contribute-to-a-sub-menu-of-context-menu -->
-        <!-- menu:project?after=buildClean -->
-        <!-- popup:org.eclipse.jdt.ui.PackageExplorer?after=additions -->
+        <!-- menu bar -->
         <menuContribution locationURI="menu:project?after=additions">
             <menu id="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.command.rootmenu" 
               label="Datenmodell Generator Visualizer" 
@@ -218,20 +217,19 @@
                   label="Reset all Markers"
                   icon="icons/fontAwesome/refresh.png" >
                 </command>
-                <!--visibleWhen>
-                    <with variable="selection">
-                        <iterate ifEmpty="false" operator="or">
-                            <instanceof value="org.eclipse.core.resources.IProjectNature"/>
-                        </iterate>
-                    </with>
-               </visibleWhen-->
             </menu>
         </menuContribution>
         
+        <!-- context menu -->
         <menuContribution locationURI="popup:org.eclipse.jdt.ui.PackageExplorer?after=additions">
             <menu id="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.command.rootmenu" 
               label="Datenmodell Generator Visualizer" 
               icon="icons/fontAwesome/fire.png">
+                <visibleWhen checkEnabled="false">
+                    <with variable="activeMenuSelection">
+                        <count value="1" />
+                    </with>
+                </visibleWhen>
             </menu>
         </menuContribution>
         <menuContribution locationURI="popup:com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.command.rootmenu">
@@ -240,16 +238,28 @@
             </command>
             <command commandId="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.command.reset"
               label="Reset all Markers" icon="icons/fontAwesome/refresh.png" style="push">
+                <!-- doesn't work this way :( -->
+                <!--visibleWhen>
+                    <with variable="selection">
+                        <iterate ifEmpty="false" operator="or">
+                            <instanceof value="org.eclipse.core.resources.IProjectNature"/>
+                            <instanceof value="org.eclipse.jdt.core.IPackageFragment"/>
+                            <instanceof value="org.eclipse.jdt.core.IPackageFragmentRoot"/>
+                        </iterate>
+                    </with>
+               </visibleWhen-->
             </command>
         </menuContribution>
     </extension>
     
     <extension point="org.eclipse.ui.commands">
         <command defaultHandler="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.menu.TreeDiffMenuHandler"
-          id="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.command.treeDiff" name="TreeDiff">
+          id="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.command.treeDiff" 
+          name="TreeDiff">
         </command>
         <command defaultHandler="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.menu.ResetHandler"
-          id="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.command.reset" name="Reset">
+          id="com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.command.reset" 
+          name="Reset">
         </command>
     </extension>
 
