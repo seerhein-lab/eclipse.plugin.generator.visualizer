@@ -14,8 +14,6 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.DatenmodellGeneratorVisualizerPlugin;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.diff.compare.CompareInput;
-import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.dto.Complement;
-import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.job.ResourceWorker;
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.marker.MarkerFactory;
 
 public class OpenInCompareViewResolution implements IMarkerResolution2 {
@@ -41,13 +39,7 @@ public class OpenInCompareViewResolution implements IMarkerResolution2 {
         
         if (filePath != null) {
             if (marker.getResource() instanceof IFile) {
-                Complement toCompare = 
-                        ResourceWorker
-                            .findGeneratedComplement(
-                                    (IFile) marker.getResource(), 
-                                    marker.getResource().getProject());
-                
-                CompareInput input = new CompareInput(toCompare, getCompareConfig(), "Complement Compare View");
+                CompareInput input = new CompareInput(marker.getResource(), getCompareConfig(), "Complement Compare View");
                 CompareUI.openCompareEditorOnPage(input, page);
 
                 CompareNavigator navigator = (CompareNavigator) input.getAdapter(ICompareNavigator.class);

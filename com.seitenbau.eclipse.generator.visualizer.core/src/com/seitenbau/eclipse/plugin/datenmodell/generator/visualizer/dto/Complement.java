@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.io.IOUtils;
 import org.eclipse.compare.rangedifferencer.RangeDifference;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 
 import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.common.Constants;
@@ -21,51 +21,65 @@ import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.common.Cons
  */
 public class Complement {
     
-    private IProject project;
+    private IResource srcResource;
     
-    private IFile srcFile;
-    
-    private IFile generatedFile;
+    private IResource genResource;
     
     private RangeDifference[] diffs;
 
-    
-    public Complement(IProject project, IFile srcFile, IFile generatedFile) {
-        this.project = project;
-        this.srcFile = srcFile;
-        this.generatedFile = generatedFile;
-    }
-    
-    public IProject getProject() {
-        return project;
+    public Complement(IResource srcResource, IResource genResource) {
+        this.srcResource = srcResource;
+        this.genResource = genResource;
     }
     
     /**
      * Typically in /{ProjectName}/src/main/java/{package}/{ClassName}.java
-     * @return The source file.
+     * @return The source file or null.
      */
     public IFile getSrcFile() {
-        return srcFile;
+        if (this.srcResource instanceof IFile) {
+            return (IFile) srcResource;
+        }
+        return null;
+    }
+    
+    public IResource getSrcResource() {
+        return srcResource;
     }
     
     /**
      * Typically in /{ProjectName}/src/ungemergtes-generat/java/{package}/{ClassName}.java
-     * @return The generated file.
+     * @return The generated file or null.
      */
-    public IFile getGeneratedFile() {
-        return generatedFile;
+    public IFile getGenFile() {
+        if (this.genResource instanceof IFile) {
+            return (IFile) genResource;
+        }
+        return null;
+    }
+    
+    public IResource getGenResource() {
+        return genResource;
     }
     
     public String getSrcFileAsString() throws CoreException, IOException {
+        if (! (this.srcResource instanceof IFile)) {
+            return null;
+        }
         StringWriter writer = new StringWriter();
-        IOUtils.copy(this.srcFile.getContents(), writer, Constants.UTF_8);
+        IFile file = (IFile) this.srcResource;
+        IOUtils.copy(file.getContents(), writer, Constants.UTF_8);
         
         return writer.toString();
     }
     
     public String getGeneratedFileAsString() throws IOException, CoreException {
+        if (! (this.genResource instanceof IFile)) {
+            return null;
+        }
         StringWriter writer = new StringWriter();
-        IOUtils.copy(this.generatedFile.getContents(), writer, Constants.UTF_8);
+        IFile file = (IFile) this.genResource;
+        IOUtils.copy(file.getContents(), writer, Constants.UTF_8);
         
         return writer.toString();
     }
@@ -147,6 +161,6 @@ public class Complement {
     
     @Override
     public String toString() {
-        return srcFile.getFullPath() + " <> " + generatedFile.getFullPath();
+        return srcResource.getFullPath() + " <> " + genResource.getFullPath();
     }
 }

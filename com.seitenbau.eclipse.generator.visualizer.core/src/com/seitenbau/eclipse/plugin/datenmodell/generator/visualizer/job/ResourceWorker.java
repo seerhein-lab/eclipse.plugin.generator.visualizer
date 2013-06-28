@@ -64,10 +64,9 @@ public class ResourceWorker {
                     try {
                         if (toUpdate != null) {
                             for (IResource changedRes : toUpdate) {
-                                IProject project = changedRes.getProject();
                                 if (changedRes instanceof IFile) {
                                     MarkerFactory.deleteMarkersInResource(changedRes);
-                                    Complement complement = ResourceWorker.findGeneratedComplement((IFile) changedRes, project);
+                                    Complement complement = ResourceWorker.findGeneratedComplement((IFile) changedRes);
 //                                    System.out.println(complement);
                                     Differ.computeAndRenderAnnotations(complement);
                                 }
@@ -96,33 +95,38 @@ public class ResourceWorker {
  
     
     /**
-     * Finds the Complement to the given source file in the given project. If no complement exists it will return null.
-     * @param srcFile
-     * @param project
-     * @return The Complement to the given source file in the given project. If no complement exists it will return null.
+     * Finds the Complement to the given source resource. If no complement exists it will return null.
+     * @param srcResource
+     * @return The Complement to the given source resource. If no complement exists it will return null.
      */
-    public static Complement findGeneratedComplement(IFile srcFile, IProject project) {
+    public static Complement findGeneratedComplement(IResource srcResource) {
 //        System.out.println(srcFile.getFullPath());
         // Input:
-        // /{ProjectName}/src/main/java/{package}/{ClassName}.java
-        String[] splitted = StringUtils.split(srcFile.getFullPath().toString(), '/');
+        // /{ProjectName}/src/main/java/{package}/[{ClassName}.java]
+        String[] splitted = StringUtils.split(srcResource.getFullPath().toString(), '/');
         // 0: {ProjectName}
         // 1: src
         // 2: main
         // 3: java
         // 4: {package}
         String[] startingAtPackageRoot = Arrays.copyOfRange(splitted, 4, splitted.length);
-        String packageRoot = StringUtils.join(startingAtPackageRoot, '/');
+        String packagePath = StringUtils.join(startingAtPackageRoot, '/');
         
-        IFolder ungemergtFolder = getGenRootFolderOfProject(project);
-        IFile generatedComplement = ungemergtFolder.getFile(packageRoot);
-//        System.out.println(generatedComplement.getFullPath());
-        if (generatedComplement.exists()) {
-            Complement result = new Complement(project, srcFile, generatedComplement);
-//            System.out.println(result);
+        IFolder ungemergtFolder = getGenRootFolderOfProject(srcResource.getProject());
+        IFile generatedComplementFile = ungemergtFolder.getFile(packagePath);
+        if (generatedComplementFile.exists()) {
+            Complement result = new Complement(srcResource, generatedComplementFile);
             return result;
         }
+        IFolder generatedComplementFolder = ungemergtFolder.getFolder(packagePath);
+        if (generatedComplementFolder.exists()) {
+            Complement result = new Complement(srcResource, generatedComplementFolder);
+            return result;
+        }
+        
+        
         return null; 
     }
+    
 
 }

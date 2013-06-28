@@ -118,7 +118,7 @@ public class FullWorkspaceScan extends Job {
                 packageScan(srcMainJavaFolder, packageScanResult);
                 
                 for (IFile res : packageScanResult) {
-                    Complement complement = ResourceWorker.findGeneratedComplement(res, project);
+                    Complement complement = ResourceWorker.findGeneratedComplement(res);
                     if (complement != null) {
                         complementResult.add(complement);
                     }

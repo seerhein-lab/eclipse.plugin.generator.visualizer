@@ -28,7 +28,7 @@ public class Differ {
      * @param complement
      */
     public static void computeAndRenderAnnotations(Complement complement) {
-        if (complement == null || complement.getSrcFile() == null || complement.getGeneratedFile() == null) {
+        if (complement == null || complement.getSrcFile() == null || complement.getGenFile() == null) {
             // no real complement
             return;
         }
@@ -163,7 +163,7 @@ public class Differ {
         RangeDifference[] differences = null;
         try {
             InputStream leftInput = toCompare.getSrcFile().getContents();
-            InputStream rightInput = toCompare.getGeneratedFile().getContents();
+            InputStream rightInput = toCompare.getGenFile().getContents();
             LineComparator leftLineComparator = new LineComparator(leftInput, Constants.UTF_8 );
             LineComparator rightLineComparator = new LineComparator(rightInput, Constants.UTF_8 );
             

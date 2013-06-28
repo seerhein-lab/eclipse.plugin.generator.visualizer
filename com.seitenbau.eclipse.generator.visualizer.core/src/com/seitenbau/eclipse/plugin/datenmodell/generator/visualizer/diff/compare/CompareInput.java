@@ -5,7 +5,6 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.compare.CompareConfiguration;
 import org.eclipse.compare.CompareEditorInput;
 import org.eclipse.compare.ResourceNode;
-import org.eclipse.compare.structuremergeviewer.Differencer;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -23,33 +22,25 @@ import com.seitenbau.eclipse.plugin.datenmodell.generator.visualizer.preferences
  */
 public class CompareInput extends CompareEditorInput {
 
-    private Complement complement;
-
     private IProject project;
-
-    private ResourceNode left;
-
-    private ResourceNode right;
     
-    static {
-        // TODO: save
-//        config.setLeftEditable(true);
-//        config.setLeftLabel("src file");
-//        config.setRightLabel("fully generated file");
-        // it is important to NOT ignore whitespaces in order to jump 
-        // to the correct diff at startup of the compare view.
-//        config.setProperty(CompareConfiguration.IGNORE_WHITESPACE, false);
-    }
+    private IResource resource;
     
-    public CompareInput(Complement toCompare, CompareConfiguration cc, String viewTitle) {
-        super(cc);
-        this.complement = toCompare;
-        setTitle(viewTitle);
-    }
+    private boolean nothingToCompare = false;
     
     public CompareInput(IProject project, CompareConfiguration cc, String viewTitle) {
         super(new CompareConfiguration());
         this.project = project;
+        setTitle(viewTitle);
+    }
+    
+    public CompareInput(IResource resource, CompareConfiguration cc, String viewTitle) {
+        super(new CompareConfiguration());
+        this.resource = resource;
+        Complement complement = ResourceWorker.findGeneratedComplement(resource);
+        if (complement == null) {
+            nothingToCompare = true;
+        }
         setTitle(viewTitle);
     }
 
@@ -60,14 +51,6 @@ public class CompareInput extends CompareEditorInput {
     }
     
     private Object decideWhatToCompare(IProgressMonitor monitor) {
-        if (this.complement != null) {
-            System.out.println("Comparing two files");
-            this.left = new ResourceNode((IResource) complement.getSrcFile());
-            this.right = new ResourceNode((IResource) complement.getGeneratedFile());
-            Differencer d= new Differencer();
-            Object differences = d.findDifferences(false, monitor, null, null, left, right);
-            return differences;
-        } 
         
         if (this.project != null) {
             System.out.println("Comparing the whole project");
@@ -75,15 +58,38 @@ public class CompareInput extends CompareEditorInput {
             IFolder src = ResourceWorker.getSrcRootFolderOfProject(this.project);
             IFolder gen = ResourceWorker.getGenRootFolderOfProject(this.project);
             
-            this.left = new ResourceNode((IResource) src);
-            this.right = new ResourceNode((IResource) gen);
+            ResourceNode left = new ResourceNode((IResource) src);
+            ResourceNode right = new ResourceNode((IResource) gen);
             
-            String[] ignores = Preferences.getPreferenceForIgnores();
-            DifferencerWithIgnores d= new DifferencerWithIgnores(ignores);
-            Object differences = d.findDifferences(false, monitor, null, null, left, right);
+            Object differences = filteredDiff(left, right, monitor);
+            return differences;
+        }
+        
+        if (this.resource != null) {
+            System.out.println("Comparing everything under '" + this.resource.getFullPath() + "'");
+            Complement complement = ResourceWorker.findGeneratedComplement(resource);
+            if (complement == null) {
+                return null;
+            }
+
+            ResourceNode left = new ResourceNode((IResource) complement.getSrcResource());
+            ResourceNode right = new ResourceNode((IResource) complement.getGenResource());
+            
+            Object differences = filteredDiff(left, right, monitor);
             return differences;
         }
         return null;
+    }
+    
+    private Object filteredDiff(ResourceNode left, ResourceNode right, IProgressMonitor monitor) {
+        String[] ignores = Preferences.getPreferenceForIgnores();
+        DifferencerWithIgnores d= new DifferencerWithIgnores(ignores);
+        Object differences = d.findDifferences(false, monitor, null, null, left, right);
+        return differences;
+    }
+    
+    public boolean isNothingToCompare() {
+        return nothingToCompare;
     }
 
 }
