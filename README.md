@@ -3,12 +3,12 @@ eclipse.plugin.generator.visualizer
 
 Eclipse Plugin to mark / visualize code affected by a code generator.
 
-Mark code which
-* was generated
-* wasn't modifed manually
-* parts are added manually
-* parts are modified manually
-* parts are removed
+Mark code which was
+* generated
+* not modifed manually
+* added manually
+* modified manually
+* removed
 
 Add shortcuts in order
 * to jump directly to the generated counterpart
