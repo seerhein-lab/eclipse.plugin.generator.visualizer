@@ -1,0 +1,16 @@
+
+# /
+/com.seitenbau.eclipse.generator.visualizer.core/target
+
+# /com.seitenbau.eclipse.generator.visualizer.core/
+/com.seitenbau.eclipse.generator.visualizer.core/bin
+/com.seitenbau.eclipse.generator.visualizer.core/target
+
+# /com.seitenbau.eclipse.generator.visualizer.core.test/
+/com.seitenbau.eclipse.generator.visualizer.core.test/target
+
+# /com.seitenbau.eclipse.generator.visualizer.feature/
+/com.seitenbau.eclipse.generator.visualizer.feature/target
+
+# /com.seitenbau.eclipse.generator.visualizer.repository/
+/com.seitenbau.eclipse.generator.visualizer.repository/target
