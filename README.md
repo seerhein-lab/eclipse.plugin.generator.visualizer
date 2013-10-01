@@ -5,7 +5,7 @@ Eclipse Plugin to mark / visualize code affected by a code generator.
 
 Mark code which was
 * generated
-* not modifed manually
+* not modified manually
 * added manually
 * modified manually
 * removed
@@ -17,7 +17,7 @@ Add shortcuts in order
 Give actions in order
 * to disable the plugin
 * to ignore certain line of codes in the compare view (tree diff)
-* to set color / way of visualization
+* to set colour / way of visualization
 
 Installation
 ------------
@@ -42,7 +42,7 @@ You can configure the plugin with the following two screens:
 
     ![annotation preferences](https://raw.github.com/Seitenbau/eclipse.plugin.generator.visualizer/docu_resources/screenshots/prefs_annotations.png)
 2. Eclipse Preferences: Generator Visualizer
-    In that screen to can configure the general behavior of the plugin.
+    In that screen to can configure the general behaviour of the plugin.
 
     ![general preferences](https://raw.github.com/Seitenbau/eclipse.plugin.generator.visualizer/docu_resources/screenshots/prefs_main.png)
 
@@ -56,4 +56,4 @@ TODO
 ====
 
 * Full description.
-* Add some screenshots.
+* Add more screenshots.
