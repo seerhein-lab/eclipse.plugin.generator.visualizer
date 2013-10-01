@@ -23,7 +23,7 @@ Use the plugin
 --------------
 
 As you can see in the following screenshot your editor view will be enhanced by marks, annotations and actions:
-![full screen mode](https://raw.github.com/Seitenbau/eclipse.plugin.generator.visualizer/docu_resources/screenshots/editor_all.png)
+![enhanced editor](https://raw.github.com/Seitenbau/eclipse.plugin.generator.visualizer/docu_resources/screenshots/editor_all.png)
 
 Configure the plugin 
 --------------------
@@ -36,7 +36,6 @@ Here you can setup the four Annotations added by this plugin (added, deleted, ge
 2. Eclipse Preferences: Generator Visualizer:
 In that screen to can configure the general behavior of the plugin.
 ![general preferences](https://raw.github.com/Seitenbau/eclipse.plugin.generator.visualizer/docu_resources/screenshots/prefs_main.png)
-
 
 TODO
 ====
