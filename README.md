@@ -39,6 +39,15 @@ You can configure the plugin with the following two screens:
 
     ![general preferences](https://raw.github.com/Seitenbau/eclipse.plugin.generator.visualizer/docu_resources/screenshots/prefs_main.png)
 
+Developing
+==========
+
+
+Developing
+==========
+
+You need Maven 3.x.
+
 TODO
 ====
 
