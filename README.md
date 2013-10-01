@@ -27,7 +27,7 @@ Configure your style (colors / way of visualization)
 
 ![markdown preview](https://raw.github.com/Seitenbau/eclipse.plugin.generator.visualizer/docu_resources/screenshots/prefs_annotations.png)
 
-![full screen mode](https://raw.github.com/Seitenbau/eclipse.plugin.generator.visualizer/docu_resources/screenshots/prefs_annotations.png)
+![full screen mode](https://raw.github.com/Seitenbau/eclipse.plugin.generator.visualizer/docu_resources/screenshots/editor_all.png)
 
 TODO
 ====
