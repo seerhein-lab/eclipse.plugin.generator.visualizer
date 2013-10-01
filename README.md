@@ -19,6 +19,16 @@ Give actions in order
 * to ignore certain line of codes in the compare view (tree diff)
 * to set color / way of visualization
 
+Setup
+=====
+
+Configure your style (colors / way of visualization)
+----------------------------------------------------
+
+![markdown preview](https://raw.github.com/Seitenbau/eclipse.plugin.generator.visualizer/docu_resources/screenshots/prefs_annotations.png)
+
+![full screen mode](https://raw.github.com/Seitenbau/eclipse.plugin.generator.visualizer/docu_resources/screenshots/prefs_annotations.png)
+
 TODO
 ====
 
