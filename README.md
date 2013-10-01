@@ -29,11 +29,11 @@ Configure the plugin
 --------------------
 
 You can configure the plugin with two screens:
+
 1. Eclipse Preferences: General > Editors > Text Editors > Annotations
 Here you can setup the four Annotations added by this plugin (added, deleted, generated, modified).
 
 ![annotation preferences](https://raw.github.com/Seitenbau/eclipse.plugin.generator.visualizer/docu_resources/screenshots/prefs_annotations.png)
-
 2. Eclipse Preferences: Generator Visualizer:
 In that screen to can configure the general behavior of the plugin.
 
