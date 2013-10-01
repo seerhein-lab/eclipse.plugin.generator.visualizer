@@ -19,15 +19,24 @@ Give actions in order
 * to ignore certain line of codes in the compare view (tree diff)
 * to set color / way of visualization
 
-Setup
-=====
+Use the plugin
+--------------
 
-Configure your style (colors / way of visualization)
-----------------------------------------------------
-
-![markdown preview](https://raw.github.com/Seitenbau/eclipse.plugin.generator.visualizer/docu_resources/screenshots/prefs_annotations.png)
-
+As you can see in the following screenshot your editor view will be enhanced by marks, annotations and actions:
 ![full screen mode](https://raw.github.com/Seitenbau/eclipse.plugin.generator.visualizer/docu_resources/screenshots/editor_all.png)
+
+Configure the plugin 
+--------------------
+
+You can configure the plugin with two screens:
+1. Eclipse Preferences: General > Editors > Text Editors > Annotations
+Here you can setup the four Annotations added by this plugin (added, deleted, generated, modified).
+![annotation preferences](https://raw.github.com/Seitenbau/eclipse.plugin.generator.visualizer/docu_resources/screenshots/prefs_annotations.png)
+
+2. Eclipse Preferences: Generator Visualizer:
+In that screen to can configure the general behavior of the plugin.
+![general preferences](https://raw.github.com/Seitenbau/eclipse.plugin.generator.visualizer/docu_resources/screenshots/prefs_main.png)
+
 
 TODO
 ====
