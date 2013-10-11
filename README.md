@@ -24,7 +24,7 @@ Installation
 
 The eclipse plug-in could be installed from the following eclipse update site:
 
-http://seitenbau.github.com/eclipse.plugin.generator.visualizer/0.1.0/
+http://seerhein-lab.github.io/eclipse.plugin.generator.visualizer/0.1.0/
 
 Use the plugin
 --------------
